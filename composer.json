@@ -1,0 +1,12 @@
+{
+    "name": "adam/zend-composer",
+    "require": {
+        "zendframework/zendframework1": "1.*"
+    },
+    "authors": [
+        {
+            "name": "phamkhien",
+            "email": "phamkhien@hotmail.com"
+        }
+    ]
+}
