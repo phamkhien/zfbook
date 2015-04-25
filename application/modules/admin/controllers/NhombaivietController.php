@@ -1,11 +1,10 @@
 <?php
 
-class Admin_NhombaivietController extends Zend_Controller_Action
-{
+class Admin_NhombaivietController extends Zendvn_Controller_Action{
 
     public function init()
     {
-        /* Initialize action controller here */
+        parent::init();
     }
 
     public function indexAction()
