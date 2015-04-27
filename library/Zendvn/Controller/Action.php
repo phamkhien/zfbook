@@ -26,7 +26,6 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
         $imgUrl = $templateUrl . $config['dirImg'];
 
         //Nap title cho layout
-        $this->view->headTitle($config['title']);
         $this->view->headLink()
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/bootstrap/css/bootstrap.min.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/js/font-awesome.min.css', 'screen')
@@ -38,11 +37,8 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/plugins/datepicker/datepicker3.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/plugins/daterangepicker/daterangepicker-bs3.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/font-awesome.min.css', 'screen')
-                ->appendStylesheet(TEMPLATE_URL . '/admin/system/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', 'screen');
-
-
-
-
+                ->appendStylesheet(TEMPLATE_URL . '/admin/system/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', 'screen')
+                ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/mystyle.css', 'screen');
 
         //Nap cac the meta vao layout
         if (count($config['metaHttp']) > 0) {
@@ -64,4 +60,4 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
     }
 
-}
+} 
