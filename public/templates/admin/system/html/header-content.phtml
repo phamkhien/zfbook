@@ -1,6 +1,11 @@
 <section class="content-header">
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+        <?php $controllerLink = $this->breadcrumb(); ?>
+        <li class="active">
+            <a href="<?php echo $this->url(array("module" => "admin", "controller" => $controllerLink ), null, true); ?>"> 
+            <?php echo $this->controllerNameInBreadcrumb; ?>
+            </a>
+        </li>
     </ol>
 </section>

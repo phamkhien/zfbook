@@ -10,6 +10,7 @@ class Admin_Form_Addnhombaiviet extends Zend_Form {
         $submit = new Zend_Form_Element_Submit('Submit');
 
         $nameNhomBaiViet->setLabel("Tên nhóm bài viết");
+        $nameNhomBaiViet->setRequired(true);
         $nameNhomBaiViet->setAttrib("class", "form-control");
         $parent->setLabel("Danh mục cha");
         $parent->setAttrib("class", "form-control");

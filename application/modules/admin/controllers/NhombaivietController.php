@@ -4,6 +4,8 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
 
     public function init() {
         parent::init();
+        $controllerNameInBreadcrumb = "Nhóm bài viết";
+        $this->view->controllerNameInBreadcrumb = $controllerNameInBreadcrumb;
     }
 
     public function indexAction() {
