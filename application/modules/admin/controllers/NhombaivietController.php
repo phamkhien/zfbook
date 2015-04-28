@@ -9,8 +9,15 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
     }
 
     public function indexAction() {
+        $this->view->headTitle('Danh sách nhóm bài viết');
+
         $arrayParent = $this->getArrayParent(null, 0, "--");
         $listNhomBaiViet = $this->getAllNhomBaiViet(null, 0);
+
+        if (!$listNhomBaiViet) {
+            $this->view->noRecord = "true";
+            return;
+        }
 
         $items = 10;
         $page = $this->getParam('page', 1);
@@ -18,17 +25,18 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         $paginator->setItemCountPerPage($items);
         $paginator->setCurrentPageNumber($page);
         $paginator->setPageRange(4);
-        
+
         $this->view->paginator = $paginator;
+
 //       var_dump($paginator);
 //       die();
-       // $this->view->listNhomBaiViet = $listNhomBaiViet;
+        // $this->view->listNhomBaiViet = $listNhomBaiViet;
         $this->view->arrayParent = $arrayParent;
         //$this->_helper->layout()->getView()->headTitle('View all students');
-        $this->view->headTitle('Danh sách nhóm bài viết');
+        // $this->view->messages = $this->_helper->flashMessenger->getMessages();
     }
 
-    public function addAction() { 
+    public function addAction() {
         $formAdd = new Admin_Form_Addnhombaiviet;
         $this->view->formAdd = $formAdd;
 
@@ -42,29 +50,30 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         if (!$isValid) {
             return;
         }
-        
+
         $dataFiltered = $formAdd->getValues();
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
         $nhomBaiVietTable->insert($dataFiltered);
         $this->_helper->redirector->gotoSimple("index", "nhombaiviet");
     }
+
     public function editAction() {
         $file = $this->getParam("file");
-        if(!$file){
+        if (!$file) {
             return;
         }
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
-        $dataNhomBaiViet = $nhomBaiVietTable->fetchRow(array("idnhom_bai_viet =?"=>$file));
-        if($dataNhomBaiViet==NULL){
+        $dataNhomBaiViet = $nhomBaiVietTable->fetchRow(array("idnhom_bai_viet =?" => $file));
+        if ($dataNhomBaiViet == NULL) {
             return;
         }
-        
+
         $formEdit = new Admin_Form_Addnhombaiviet;
         $formEdit->populate($dataNhomBaiViet->toArray());
         $this->view->formEdit = $formEdit;
         $this->view->messages = $this->_helper->flashMessenger->getMessages();
 
-       
+
         $request = $this->getRequest();
         $isPost = $request->isPost();
         if (!$isPost) {
@@ -78,11 +87,10 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
 
         $dataFiltered = $formEdit->getValues();
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
-        $nhomBaiVietTable->update($dataFiltered, array("idnhom_bai_viet =?"=>$file));
-        $this->_helper->flashMessenger->addMessage('Task saved');
-        
+        $update = $nhomBaiVietTable->update($dataFiltered, array("idnhom_bai_viet =?" => $file));
 
-        $this->_helper->redirector->gotoSimple("edit", "nhombaiviet", "admin", array("file"=>$file));
+        $this->_helper->flashMessenger->addMessage('Edit okey');
+        $this->_helper->redirector->gotoSimple("edit", "nhombaiviet", "admin", array("file" => $file));
     }
 
     protected function getArrayParent($arrayParent, $parent, $style = "") {
@@ -100,6 +108,7 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
     protected function getAllNhomBaiViet($arrayParent, $parent) {
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
         $listNhomBaiViet = $nhomBaiVietTable->fetchAll(array("parent=?" => $parent));
+
         foreach ($listNhomBaiViet as $nhomBaiViet) {
             $idNhomBaiViet = $nhomBaiViet->idnhom_bai_viet;
             $tenNhomBaiViet = $nhomBaiViet->ten_nhom_bai_viet;

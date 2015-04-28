@@ -1,6 +1,15 @@
 <div><a href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "add"), null, true) ?>" class="btn btn-primary">Add</a> </div>
 <div class="title-action"><h2> Danh sách nhóm bài viết</h2>
 </div>
+<?php if($this->noRecord != NULL) :?>
+   <div class="info-box bg-yellow">
+        <span class="info-box-icon"><i class="fa fa-exclamation-triangle"></i></span>
+        <div class="info-box-content">
+            <p>Hiện tại chưa tồn tại  <b> nhóm bài viết</b> nào!</p>
+        </div><!-- /.info-box-content -->
+    </div>
+<?php return; endif; ?>
+
 <div class="div-content100">
     <table class="table table-hover text-center">
         <tr class="first-tr">
@@ -8,7 +17,6 @@
             <td>Tên nhóm bài viết</td>
             <td>Danh mục cha</td>
             <td>Hành động</td>
-
         </tr>
         <?php
         foreach ($this->paginator as $nhomBaiViet) :
@@ -31,7 +39,8 @@
                 </td>
             </tr>
         <?php endforeach; ?>
+
     </table>
-  <?php echo $this->paginationControl($this->readall, 'Elastic', 'pagination.phtml'); ?>
+    <?php echo $this->paginationControl($this->readall, 'Elastic', 'pagination.phtml'); ?>
 
 </div>
