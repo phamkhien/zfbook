@@ -10,7 +10,7 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         $arrayParent = $this->getArrayParent(null, 0, "--");
         $listNhomBaiViet = $this->getAllNhomBaiViet(null, 0);
 
-        $items = 2;
+        $items = 10;
         $page = $this->getParam('page', 1);
         $paginator = Zend_Paginator::factory($listNhomBaiViet);
         $paginator->setItemCountPerPage($items);
@@ -26,7 +26,7 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         $this->view->headTitle('Danh sách nhóm bài viết');
     }
 
-    public function addAction() {
+    public function addAction() { 
         $formAdd = new Admin_Form_Addnhombaiviet;
         $this->view->formAdd = $formAdd;
 
@@ -40,11 +40,47 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         if (!$isValid) {
             return;
         }
-
+        
         $dataFiltered = $formAdd->getValues();
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
         $nhomBaiVietTable->insert($dataFiltered);
         $this->_helper->redirector->gotoSimple("index", "nhombaiviet");
+    }
+    public function editAction() {
+        $file = $this->getParam("file");
+        if(!$file){
+            return;
+        }
+        $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
+        $dataNhomBaiViet = $nhomBaiVietTable->fetchRow(array("idnhom_bai_viet =?"=>$file));
+        if($dataNhomBaiViet==NULL){
+            return;
+        }
+        
+        $formEdit = new Admin_Form_Addnhombaiviet;
+        $formEdit->populate($dataNhomBaiViet->toArray());
+        $this->view->formEdit = $formEdit;
+        $this->view->messages = $this->_helper->flashMessenger->getMessages();
+
+       
+        $request = $this->getRequest();
+        $isPost = $request->isPost();
+        if (!$isPost) {
+            return;
+        }
+
+        $isValid = $formEdit->isValid($request->getPost());
+        if (!$isValid) {
+            return;
+        }
+
+        $dataFiltered = $formEdit->getValues();
+        $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
+        $nhomBaiVietTable->update($dataFiltered, array("idnhom_bai_viet =?"=>$file));
+        $this->_helper->flashMessenger->addMessage('Task saved');
+        
+
+        $this->_helper->redirector->gotoSimple("edit", "nhombaiviet", "admin", array("file"=>$file));
     }
 
     protected function getArrayParent($arrayParent, $parent, $style = "") {

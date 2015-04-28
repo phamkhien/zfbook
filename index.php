@@ -12,7 +12,7 @@ defined('APPLICATION_ENV')
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
     realpath(APPLICATION_PATH . '/../vendor/zendframework/zendframework1/library'),
-    get_include_path(),
+   // get_include_path(),
 )));
 // Define path to Public directory
 define("PUBLIC_PATH", realpath(dirname(__FILE__).'/public'));
