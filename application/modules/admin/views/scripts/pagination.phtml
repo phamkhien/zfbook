@@ -1,0 +1,63 @@
+<?php if ($this->pageCount): ?>
+    <nav>
+        <ul class="pagination">
+            <!-- First page link -->
+            <?php if (isset($this->previous)): ?>
+                <li>  <a aria-label="First" href="<?php echo $this->url(array('page' => $this->first)); ?>">
+                        <span aria-hidden="true">First</span>
+                    </a> </li>
+            <?php else: ?>
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">First</span></a></li>
+            <?php endif; ?>
+
+
+            <!-- Previous page link -->
+            <?php if (isset($this->previous)): ?>
+                <li> <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+                        «
+                    </a> </li>
+            <?php else: ?>
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+            <?php endif; ?>
+
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+            <li>   <a  href="<?php echo $this->url(array('page' => $page)); ?>"><?php echo $page; ?></a></li>
+                <?php else: ?>
+                    <li class="active"><a href="#"><?php echo $page; ?></a></li>  
+                <?php endif; ?>
+            <?php endforeach; ?>   
+          
+           
+
+
+            <!-- Next page link -->
+            <?php if (isset($this->next)): ?>
+                <li> <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
+                        »
+                    </a> </li>
+            <?php else: ?>
+                <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+            <?php endif; ?>  
+
+
+            <!-- Last page link -->
+            <?php if (isset($this->next)): ?>
+                <li> <a href="<?php echo $this->url(array('page' => $this->last)); ?>">
+                        Last
+                    </a></li>
+            <?php else: ?>
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">Last</span></a></li>
+                <?php endif; ?>    
+                <li ><a href="#" class="pagination-current-pagecount"><?php echo $this->current ." / ". $this->pageCount; ?></a></li> 
+        </ul>
+ 
+    </nav>
+<nav>
+      <ul class="pagination"> 
+         
+     </ul>
+   </nav>
+<?php endif; ?>
+   

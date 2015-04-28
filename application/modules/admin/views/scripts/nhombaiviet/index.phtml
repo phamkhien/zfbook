@@ -1,4 +1,4 @@
-<div><a href="<?php echo $this->url(array("module"=>"admin","controller" => "nhombaiviet", "action" => "add"),null, true) ?>" class="btn btn-primary">Add</a> </div>
+<div><a href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "add"), null, true) ?>" class="btn btn-primary">Add</a> </div>
 <div class="title-action"><h2> Danh sách nhóm bài viết</h2>
 </div>
 <div class="div-content100">
@@ -11,13 +11,10 @@
 
         </tr>
         <?php
-        foreach ($this->listNhomBaiViet as $nhomBaiViet) :
+        foreach ($this->paginator as $nhomBaiViet) :
             $idNhomBaiViet = $nhomBaiViet['idnhom_bai_viet'];
             $tenNhomBaiViet = $nhomBaiViet['ten_nhom_bai_viet'];
             $parent = $nhomBaiViet['parent'];
-            //$nameParent = $this->arrayParent['8'];
-//           var_dump($this->arrayParent);
-//           die();
             if ($parent == 0) {
                 $nameParent = "Default";
             } else {
@@ -29,12 +26,12 @@
                 <td><?php echo $tenNhomBaiViet; ?></td>
                 <td style="text-align: left;"><?php echo $nameParent; ?></td>
                 <td>
-                    <a class="btn btn-warning" href="<?php echo $this->url(array("module"=>"admin","controller" => "nhombaiviet", "action" => "edit", "file" => $idNhomBaiViet), null, true); ?>">Edit</a> 
-                    <a class="btn btn-danger" href="<?php echo $this->url(array("module"=>"admin","controller" => "nhombaiviet", "action" => "delete", "file" => $idNhomBaiViet), null, true); ?>">Delete</a> 
+                    <a class="btn btn-warning" href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "edit", "file" => $idNhomBaiViet), null, true); ?>">Edit</a> 
+                    <a class="btn btn-danger" href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "delete", "file" => $idNhomBaiViet), null, true); ?>">Delete</a> 
                 </td>
-
             </tr>
         <?php endforeach; ?>
     </table>
+  <?php echo $this->paginationControl($this->readall, 'Elastic', 'pagination.phtml'); ?>
 
 </div>

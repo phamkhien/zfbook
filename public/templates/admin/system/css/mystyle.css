@@ -30,3 +30,7 @@ and open the template in the editor.
 .hr{
     color: red;
 }
+.pagination-current-pagecount{
+    background-color: #00A65A !important;
+    color: white !important;
+}

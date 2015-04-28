@@ -7,22 +7,20 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
     }
 
     public function indexAction() {
-       //$nhomBaiVietTable = new Admin_Model_Nhombaiviet;
         $arrayParent = $this->getArrayParent(null, 0, "--");
-
-//        $select = $nhomBaiVietTable->select()->order("idnhom_bai_viet DESC");
-//        $listNhomBaiViet = $nhomBaiVietTable->fetchAll($select);
-        
-//        echo "<pre>";
-//        print_r($listNhomBaiViet);
-//        echo "</pre>";
-//        die();
-//        echo "<pre>";
-//        print_r($this->getAllNhomBaiViet(null, 0));
-//        echo "</pre>";
-//        die();
         $listNhomBaiViet = $this->getAllNhomBaiViet(null, 0);
-        $this->view->listNhomBaiViet = $listNhomBaiViet;
+
+        $items = 2;
+        $page = $this->getParam('page', 1);
+        $paginator = Zend_Paginator::factory($listNhomBaiViet);
+        $paginator->setItemCountPerPage($items);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setPageRange(4);
+        
+        $this->view->paginator = $paginator;
+//       var_dump($paginator);
+//       die();
+       // $this->view->listNhomBaiViet = $listNhomBaiViet;
         $this->view->arrayParent = $arrayParent;
         //$this->_helper->layout()->getView()->headTitle('View all students');
         $this->view->headTitle('Danh sách nhóm bài viết');
@@ -54,7 +52,7 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         $listNhomBaiViet = $nhomBaiVietTable->fetchAll(array("parent=?" => $parent));
         $styles = $style . " -- ";
         foreach ($listNhomBaiViet as $nhomBaiViet) {
-            $arrayParent[$nhomBaiViet['idnhom_bai_viet']] = $style." " . $nhomBaiViet['ten_nhom_bai_viet'];
+            $arrayParent[$nhomBaiViet['idnhom_bai_viet']] = $style . " " . $nhomBaiViet['ten_nhom_bai_viet'];
             $arrayParent = $this->getArrayParent($arrayParent, $nhomBaiViet['idnhom_bai_viet'], $styles);
         }
 
@@ -63,17 +61,16 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
 
     protected function getAllNhomBaiViet($arrayParent, $parent) {
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
-        $listNhomBaiViet = $nhomBaiVietTable->fetchAll(array("parent=?" => $parent)); 
+        $listNhomBaiViet = $nhomBaiVietTable->fetchAll(array("parent=?" => $parent));
         foreach ($listNhomBaiViet as $nhomBaiViet) {
             $idNhomBaiViet = $nhomBaiViet->idnhom_bai_viet;
             $tenNhomBaiViet = $nhomBaiViet->ten_nhom_bai_viet;
             $parentNhomBaiViet = $nhomBaiViet->parent;
-            $arrayParent[] = array("idnhom_bai_viet"=>$idNhomBaiViet, "ten_nhom_bai_viet" =>$tenNhomBaiViet, "parent"=>$parentNhomBaiViet );
+            $arrayParent[] = array("idnhom_bai_viet" => $idNhomBaiViet, "ten_nhom_bai_viet" => $tenNhomBaiViet, "parent" => $parentNhomBaiViet);
             $arrayParent = $this->getAllNhomBaiViet($arrayParent, $nhomBaiViet['idnhom_bai_viet']);
         }
-       
+
         return $arrayParent;
-        
     }
 
 }
