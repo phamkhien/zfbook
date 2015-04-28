@@ -1,14 +1,47 @@
 <div><a href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "add"), null, true) ?>" class="btn btn-primary">Add</a> </div>
 <div class="title-action"><h2> Danh sách nhóm bài viết</h2>
 </div>
-<?php if($this->noRecord != NULL) :?>
-   <div class="info-box bg-yellow">
+
+<?php $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger'); ?>
+
+<?php if ($flashMessenger->hasMessages('delete-false')): ?>
+    <div class="message success">
+        <?php foreach ($flashMessenger->getMessages('delete-false') as $msg): ?>
+            <div class="info-box bg-yellow">
+                <span class="info-box-icon"><i class="fa fa-exclamation-triangle"></i></span>
+                <div class="info-box-content">
+                    <p><?php echo $msg; ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+<?php if ($flashMessenger->hasMessages('delete-successful')): ?>
+    <div class="message success">
+        <?php foreach ($flashMessenger->getMessages('delete-successful') as $msg): ?>
+            <div class="info-box bg-green">
+                <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
+                <div class="info-box-content">
+                    <p><?php echo $msg; ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
+
+
+<?php if ($this->noRecord != NULL) : ?>
+    <div class="info-box bg-yellow">
         <span class="info-box-icon"><i class="fa fa-exclamation-triangle"></i></span>
         <div class="info-box-content">
             <p>Hiện tại chưa tồn tại  <b> nhóm bài viết</b> nào!</p>
         </div><!-- /.info-box-content -->
     </div>
-<?php return; endif; ?>
+    <?php
+    return;
+endif;
+?>
 
 <div class="div-content100">
     <table class="table table-hover text-center">
@@ -34,8 +67,8 @@
                 <td><?php echo $tenNhomBaiViet; ?></td>
                 <td style="text-align: left;"><?php echo $nameParent; ?></td>
                 <td>
-                    <a class="btn btn-warning" href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "edit", "file" => $idNhomBaiViet), null, true); ?>">Edit</a> 
-                    <a class="btn btn-danger" href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "delete", "file" => $idNhomBaiViet), null, true); ?>">Delete</a> 
+                    <a class="btn btn-warning" href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "edit", "file" => $idNhomBaiViet), null, true); ?>"><i class="fa fa-pencil"></i> Edit</a> 
+                    <a class="btn btn-danger" href="<?php echo $this->url(array("module" => "admin", "controller" => "nhombaiviet", "action" => "delete", "file" => $idNhomBaiViet), null, true); ?>"><i class="fa fa-trash-o"></i> Del</a> 
                 </td>
             </tr>
         <?php endforeach; ?>

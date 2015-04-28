@@ -1,14 +1,13 @@
+<div class="title-action"><h2> Sửa đổi nhóm bài viết</h2>
+</div>
 <?php if (!empty($this->messages)): ?>
-
     <div class="info-box bg-green">
         <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
         <div class="info-box-content">
-            <p>Sửa đổi <b> nhóm bài viết</b> thành công!</p>
+            <?php foreach ($this->messages as $msg) : ?>
+                <p> <?php echo $msg ?></p>
+            <?php endforeach; ?>
         </div><!-- /.info-box-content -->
     </div>
 <?php endif; ?>
-
-
-<div class="title-action"><h2> Sửa đổi nhóm bài viết</h2>
-</div>
 <div class="div-content50"> <?php echo $this->formEdit; ?></div>
