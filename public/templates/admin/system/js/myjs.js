@@ -1,11 +1,12 @@
-//$(document).ready(function(){
-//  $("#delete-record").click(function(){
-//    if (!confirm("Do you want to delete")){
-//      return false;
-//    }
-//  });
-//});
+$(document).ready(function () {
+    $(".delete-record").click(function (event) {
+        var name = $(this).attr("data-name");
+        if (!confirm("Bạn có thực sự muốn xóa bản ghi: " + name + " ?")) {
+            event.preventDefault();
+        }
 
+    });
+});
 
 
 
