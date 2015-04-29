@@ -1,26 +1,36 @@
 <?php echo $this->doctype(); ?>
 <html>
-  <head>
-      <?php echo $this->render('html/header.phtml'); ?>
-  </head>
-  <body class="skin-blue">
-    <div class="wrapper">
-      <?php echo $this->render('html/top.phtml'); ?>
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <?php echo $this->render('html/header-content.phtml'); ?>
+    <head>
+        <?php echo $this->render('html/header.phtml'); ?>
         
-        <!-- Main content -->
-        <section class="content" style="background-color: white;">
-            
-            <?php echo $this->layout()->content; ?>
-            
-        </section>
-        
-      </div><!-- /.content-wrapper -->
-      <?php echo $this->render('html/footer.phtml'); ?>
-    </div><!-- ./wrapper -->
-<?php echo $this->render('html/jquery.phtml'); ?>
-  </body>
+    </head>
+    <body class="skin-blue">
+        <div class="wrapper">
+            <?php echo $this->render('html/top.phtml'); ?>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <?php echo $this->render('html/header-content.phtml'); ?>
+
+                <!-- Main content -->
+                <section class="content" style="background-color: white;">
+
+                    <?php echo $this->layout()->content; ?>
+
+                </section>
+
+            </div><!-- /.content-wrapper -->
+            <?php echo $this->render('html/footer.phtml'); ?>
+        </div><!-- ./wrapper -->
+        <?php echo $this->render('html/jquery.phtml'); ?>
+        <script>
+          
+                $(".delete-record").click(function () {
+                    if (!confirm("Do you want to delete")) {
+                        return false;
+                    }
+                });
+      
+        </script>
+    </body>
 </html>

@@ -28,7 +28,7 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
         //Nap title cho layout
         $this->view->headLink()
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/bootstrap/css/bootstrap.min.css', 'screen')
-                ->appendStylesheet(TEMPLATE_URL . '/admin/system/js/font-awesome.min.css', 'screen')
+                ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/font-awesome.min.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/dist/css/AdminLTE.min.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/dist/css/skins/_all-skins.min.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/plugins/iCheck/flat/blue.css', 'screen')
@@ -40,6 +40,7 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/mystyle.css', 'screen');
 
+        
         //Nap cac the meta vao layout
         if (count($config['metaHttp']) > 0) {
             foreach ($config['metaHttp'] as $key => $value) {

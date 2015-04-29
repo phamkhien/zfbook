@@ -15,7 +15,7 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
 //         die();
 //        }
         //$this->view->messages = $this->_helper->flashMessenger()->getMessages();
-     
+
         $arrayParent = $this->getArrayParent(null, 0, "--");
         $listNhomBaiViet = $this->getAllNhomBaiViet(null, 0);
 
@@ -90,30 +90,34 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         }
 
         $dataFiltered = $formEdit->getValues();
-        $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
-        $update = $nhomBaiVietTable->update($dataFiltered, array("idnhom_bai_viet =?" => $file));
+
+        $nhomBaiVietTable->update($dataFiltered, array("idnhom_bai_viet =?" => $file));
 
         $this->_helper->flashMessenger->addMessage('Sửa đổi <b> nhóm bài viết</b> thành công!');
         $this->_helper->redirector->gotoSimple("edit", "nhombaiviet", "admin", array("file" => $file));
     }
-    
-    
+
     public function deleteAction() {
         $file = $this->getParam("file");
         if (!$file) {
             return;
         }
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
+        $dataNhomBaiViet = $nhomBaiVietTable->fetchRow(array("parent=?" => $file));
+        if (!empty($dataNhomBaiViet)) {
+            $this->_helper->FlashMessenger()->setNamespace('delete-false')->addMessage('Tồn tại bản ghi con thuộc <b>Nhóm bài viết</b> này. Vui lòng xóa hết các bản ghi con trước khi xóa bản ghi hiện tại!');
+            $this->_helper->redirector->gotoSimple("index", "nhombaiviet", "admin");
+            return;
+        }
         $delete = $nhomBaiVietTable->delete(array("idnhom_bai_viet =?" => $file));
-        if($delete){
+        if ($delete) {
             $this->_helper->FlashMessenger()->setNamespace('delete-successful')->addMessage('Bản ghi đã được xóa thành công!');
-        }else{
-          
+        } else {
             //$this->_helper->flashMessenger()->addMessage('Post created!', 'delete-false');
             $this->_helper->FlashMessenger()->setNamespace('delete-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được xóa!');
             // $this->_helper->flashMessenger(array("delete-false"=>"Bản ghi đã được xóa thành công!"));
         }
-       
+
         $this->_helper->redirector->gotoSimple("index", "nhombaiviet", "admin");
     }
 
