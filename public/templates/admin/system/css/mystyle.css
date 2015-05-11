@@ -34,3 +34,12 @@ and open the template in the editor.
     background-color: #00A65A !important;
     color: white !important;
 }
+.text-overflow{
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.float-left{
+    float:left !important;
+}

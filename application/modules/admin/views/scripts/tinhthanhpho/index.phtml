@@ -1,0 +1,44 @@
+<div>
+    <div class="float-left"> 
+    <?php
+        $arrayOptionsLinkAdd = array("module" => "admin",
+            "controller" => "tinhthanhpho",
+            "action" => "add");
+        $linkAdd = $this->url($arrayOptionsLinkAdd, null, true);
+        ?>
+        <a href="<?php echo $linkAdd; ?>" class="btn btn-primary">Add</a> 
+    </div>
+    <div class="title-action">
+        <h2> Danh sách tỉnh thành phố</h2>
+    </div>
+</div>
+
+<?php echo $this->flashMessenger() ?>
+<div class="table-responsive">
+    <table class="table table-hover text-center">
+        <tr class="first-tr">
+            <td>Id</td>
+            <td>Tên nhóm bài viết</td>
+            <td>Hành động</td>
+        </tr>
+        <?php
+        foreach ($this->paginator as $tinhThanhPho) :
+            $idTinhThanhPho = $tinhThanhPho['idtinh_thanh_pho'];
+            $tenTinhThanhPho = $tinhThanhPho['ten_tinh_thanh_pho'];
+            ?>
+            <tr>
+                <td><?php echo $idTinhThanhPho; ?></td>
+                <td class="text-overflow"><?php echo $tenTinhThanhPho; ?></td>
+                <td>
+                    <a class="btn btn-default" href="<?php echo $this->url(array("module" => "admin", "controller" => "tinhthanhpho", "action" => "edit", "file" => $idTinhThanhPho), null, true); ?>"><i class="fa fa-pencil"></i> Edit</a> &nbsp;&nbsp;
+                    <a class="btn btn-default delete-record" data-name="<?php echo $tenTinhThanhPho; ?>" href="<?php echo $this->url(array("module" => "admin", "controller" => "tinhthanhpho", "action" => "delete", "file" => $idTinhThanhPho), null, true); ?>"><i class="fa fa-trash-o"></i> Del</a> 
+                   
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </table>
+    
+    <?php echo $this->paginationControl(NULL, 'Elastic', 'pagination.phtml'); ?>
+
+</div>

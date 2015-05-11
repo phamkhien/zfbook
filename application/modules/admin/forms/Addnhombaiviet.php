@@ -9,11 +9,15 @@ class Admin_Form_Addnhombaiviet extends Zend_Form {
         $parent = new Zend_Form_Element_Select('parent');
         $submit = new Zend_Form_Element_Submit('Submit');
 
-        $nameNhomBaiViet->setLabel("Tên nhóm bài viết");
-        $nameNhomBaiViet->setRequired(true);
-        $nameNhomBaiViet->setAttrib("class", "form-control");
-        $parent->setLabel("Danh mục cha");
-        $parent->setAttrib("class", "form-control");
+        $nameNhomBaiViet->setLabel("Tên nhóm bài viết")
+                ->setRequired(true)
+                ->setAttrib("class", "form-control")
+                ->addFilter('StringTrim')
+                ->setAttrib('maxLength', 50);
+
+
+        $parent->setLabel("Danh mục cha")
+                ->setAttrib("class", "form-control");
 
         $arrayParent = array("0" => "Default");
         $parent->setMultiOptions($this->getArrayParent($arrayParent, 0, null));
@@ -37,7 +41,8 @@ class Admin_Form_Addnhombaiviet extends Zend_Form {
 
     protected function getArrayParent($arrayParent, $parent, $style = "") {
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
-        $listNhomBaiViet = $nhomBaiVietTable->fetchAll(array("parent=?" => $parent));
+        $select = $nhomBaiVietTable->select()->where("parent=?", $parent)->order("idnhom_bai_viet DESC");
+        $listNhomBaiViet = $nhomBaiVietTable->fetchAll($select);
         $styles = $style . "--";
         foreach ($listNhomBaiViet as $nhomBaiViet) {
             $arrayParent[$nhomBaiViet['idnhom_bai_viet']] = $style . $nhomBaiViet['ten_nhom_bai_viet'];

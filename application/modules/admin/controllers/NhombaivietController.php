@@ -20,7 +20,7 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         $listNhomBaiViet = $this->getAllNhomBaiViet(null, 0);
 
         if (!$listNhomBaiViet) {
-            $this->view->noRecord = "true";
+            $this->view->noRecord = true;
             return;
         }
 
@@ -42,6 +42,7 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
     }
 
     public function addAction() {
+        $this->view->headTitle('Thêm mới nhóm bài viết');
         $formAdd = new Admin_Form_Addnhombaiviet;
         $this->view->formAdd = $formAdd;
 
@@ -57,12 +58,26 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         }
 
         $dataFiltered = $formAdd->getValues();
+
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
-        $nhomBaiVietTable->insert($dataFiltered);
+
+        $checkSameName = $nhomBaiVietTable->fetchRow(array("ten_nhom_bai_viet = ?" => $dataFiltered['ten_nhom_bai_viet']));
+        if ($checkSameName) {
+            $this->_helper->FlashMessenger()->setNamespace('add-false')->addMessage('Tên <b>nhóm bài viết</b> đã tồn tại!');
+            $this->_helper->redirector->gotoSimple("index", "nhombaiviet");
+        }
+        $add = $nhomBaiVietTable->insert($dataFiltered);
+        if ($add) {
+            $this->_helper->FlashMessenger()->setNamespace('add-successful')->addMessage('Bản ghi đã được thêm thành công!');
+        } else {
+            $this->_helper->FlashMessenger()->setNamespace('add-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được thêm mới!');
+        }
+
         $this->_helper->redirector->gotoSimple("index", "nhombaiviet");
     }
 
     public function editAction() {
+        $this->view->headTitle('Sửa đổi nhóm bài viết');
         $file = $this->getParam("file");
         if (!$file) {
             return;
@@ -76,8 +91,6 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         $formEdit = new Admin_Form_Addnhombaiviet;
         $formEdit->populate($dataNhomBaiViet->toArray());
         $this->view->formEdit = $formEdit;
-        $this->view->messages = $this->_helper->flashMessenger->getMessages();
-
         $request = $this->getRequest();
         $isPost = $request->isPost();
         if (!$isPost) {
@@ -91,19 +104,28 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
 
         $dataFiltered = $formEdit->getValues();
 
-        $nhomBaiVietTable->update($dataFiltered, array("idnhom_bai_viet =?" => $file));
+        $edit = $nhomBaiVietTable->update($dataFiltered, array("idnhom_bai_viet =?" => $file));
+        if ($edit) {
+            $this->_helper->FlashMessenger()->setNamespace('edit-successful')->addMessage('Bản ghi đã được sửa đổi thành công!');
+        } else {
+            //$this->_helper->flashMessenger()->addMessage('Post created!', 'delete-false');
+            $this->_helper->FlashMessenger()->setNamespace('edit-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được sửa đổi!');
+            // $this->_helper->flashMessenger(array("delete-false"=>"Bản ghi đã được xóa thành công!"));
+        }
 
-        $this->_helper->flashMessenger->addMessage('Sửa đổi <b> nhóm bài viết</b> thành công!');
         $this->_helper->redirector->gotoSimple("edit", "nhombaiviet", "admin", array("file" => $file));
     }
 
     public function deleteAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
         $file = $this->getParam("file");
         if (!$file) {
             return;
         }
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
         $dataNhomBaiViet = $nhomBaiVietTable->fetchRow(array("parent=?" => $file));
+
         if (!empty($dataNhomBaiViet)) {
             $this->_helper->FlashMessenger()->setNamespace('delete-false')->addMessage('Tồn tại bản ghi con thuộc <b>Nhóm bài viết</b> này. Vui lòng xóa hết các bản ghi con trước khi xóa bản ghi hiện tại!');
             $this->_helper->redirector->gotoSimple("index", "nhombaiviet", "admin");
@@ -129,13 +151,14 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
             $arrayParent[$nhomBaiViet['idnhom_bai_viet']] = $style . " " . $nhomBaiViet['ten_nhom_bai_viet'];
             $arrayParent = $this->getArrayParent($arrayParent, $nhomBaiViet['idnhom_bai_viet'], $styles);
         }
-
         return $arrayParent;
     }
 
     protected function getAllNhomBaiViet($arrayParent, $parent) {
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
-        $listNhomBaiViet = $nhomBaiVietTable->fetchAll(array("parent=?" => $parent));
+        $select = $nhomBaiVietTable->select()->where("parent=?", $parent)->order("idnhom_bai_viet DESC");
+        //$listNhomBaiViet = $nhomBaiVietTable->fetchAll(array("parent=?" => $parent));
+        $listNhomBaiViet = $nhomBaiVietTable->fetchAll($select);
 
         foreach ($listNhomBaiViet as $nhomBaiViet) {
             $idNhomBaiViet = $nhomBaiViet->idnhom_bai_viet;
@@ -144,7 +167,6 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
             $arrayParent[] = array("idnhom_bai_viet" => $idNhomBaiViet, "ten_nhom_bai_viet" => $tenNhomBaiViet, "parent" => $parentNhomBaiViet);
             $arrayParent = $this->getAllNhomBaiViet($arrayParent, $nhomBaiViet['idnhom_bai_viet']);
         }
-
         return $arrayParent;
     }
 
