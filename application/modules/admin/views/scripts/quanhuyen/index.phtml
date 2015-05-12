@@ -1,0 +1,68 @@
+<div>
+    <div class="float-left"> 
+        <?php
+        $arrayOptionsLinkAdd = array("module" => "admin",
+            "controller" => "quanhuyen",
+            "action" => "add");
+        $linkAdd = $this->url($arrayOptionsLinkAdd, null, true);
+        ?>
+        <a href="<?php echo $linkAdd; ?>" class="btn btn-primary">Add</a> 
+    </div>
+    <div class="title-action">
+        <h2> Danh sách quận huyện</h2>
+    </div>
+</div>
+
+<?php echo $this->flashMessenger() ?>
+<div class="table-responsive">
+    <table class="table table-hover text-center">
+        <tr class="first-tr">
+            <td>Id</td>
+            <td>Tên quận huyện</td>
+            <td>Tên tỉnh thành phố</td>
+            <td>Hành động</td>
+        </tr>
+        <?php
+        //$mapIdToNameTinhThanhPho = $this->mapIdToNameTinhThanhPho;
+        foreach ($this->paginator as $quanHuyen) :
+            $idQuanHuyen = $quanHuyen['idquan_huyen'];
+            $tenQuanHuyen = $quanHuyen['ten_quan_huyen'];
+            $tenTinhThanhPho = $quanHuyen['ten_tinh_thanh_pho'];
+            ?>
+            <tr>
+                <td class="text-middle"><?php echo $idQuanHuyen; ?></td>
+                <td class="text-overflow text-middle"><?php echo $tenQuanHuyen; ?></td>
+                <td class="text-overflow text-middle"><?php echo $tenTinhThanhPho; ?></td>
+                <td class="text-overflow text-middle">
+                    <?php
+                    $linkEdit = $this->url(array("module" => "admin",
+                        "controller" => "quanhuyen",
+                        "action" => "edit",
+                        "file" => $idQuanHuyen), null, true);
+                    ?>
+                    <a class="btn btn-default" href="<?php echo $linkEdit; ?>">
+                        <i class="fa fa-pencil"></i> 
+                        Edit
+                    </a> 
+
+                    &nbsp;&nbsp;
+
+                    <?php
+                    $linkDelete = $this->url(array("module" => "admin",
+                        "controller" => "quanhuyen",
+                        "action" => "delete",
+                        "file" => $idQuanHuyen), null, true)
+                    ?>
+                    <a class="btn btn-default delete-record" data-name="<?php echo $tenQuanHuyen; ?>" href="<?php echo $linkDelete; ?>">
+                        <i class="fa fa-trash-o"></i> 
+                        Del
+                    </a>   
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </table>
+
+    <?php echo $this->paginationControl(NULL, 'Elastic', 'pagination.phtml'); ?>
+
+</div>

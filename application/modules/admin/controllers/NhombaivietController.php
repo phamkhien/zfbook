@@ -19,8 +19,9 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         $arrayParent = $this->getArrayParent(null, 0, "--");
         $listNhomBaiViet = $this->getAllNhomBaiViet(null, 0);
 
-        if (!$listNhomBaiViet) {
-            $this->view->noRecord = true;
+        $rowCount = count($listNhomBaiViet);
+        if (0 == $rowCount) {
+            $this->view->noRecord = "true";
             return;
         }
 

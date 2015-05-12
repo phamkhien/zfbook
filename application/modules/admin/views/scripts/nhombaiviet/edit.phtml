@@ -1,32 +1,8 @@
 <div class="title-action"><h2> Sửa đổi nhóm bài viết</h2>
 </div>
 
-<?php $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger'); ?>
-
-<?php if ($flashMessenger->hasMessages('edit-false')): ?>
-    <div class="message success">
-        <?php foreach ($flashMessenger->getMessages('edit-false') as $msg): ?>
-            <div class="info-box bg-yellow">
-                <span class="info-box-icon"><i class="fa fa-exclamation-triangle"></i></span>
-                <div class="info-box-content">
-                    <p><?php echo $msg; ?></p>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php endif; ?>
-
-<?php if ($flashMessenger->hasMessages('edit-successful')): ?>
-    <div class="message success">
-        <?php foreach ($flashMessenger->getMessages('edit-successful') as $msg): ?>
-            <div class="info-box bg-green">
-                <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
-                <div class="info-box-content">
-                    <p><?php echo $msg; ?></p>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php endif; ?>
+<?php
+    echo $this->flashMessenger();
+?>
 
 <div class="div-content50"> <?php echo $this->formEdit; ?></div>

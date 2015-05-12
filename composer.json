@@ -1,8 +1,10 @@
 {
     "name": "adam/zend-composer",
     "require": {
-        "zendframework/zendframework1": "1.*"
+        "zendframework/zendframework1": "1.*",
+        "robmorgan/phinx": "*"
     },
+    
     "authors": [
         {
             "name": "phamkhien",

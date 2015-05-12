@@ -12,8 +12,10 @@ class Admin_TinhthanhphoController extends Zendvn_Controller_Action {
         $this->view->headTitle('Danh sách tỉnh thành phố');
         $tinhThanhPhoTable = new Admin_Model_Tinhthanhpho;
         $listTinhThanhPho = $tinhThanhPhoTable->fetchAll();
-        if (!$listTinhThanhPho) {
-            $this->view->noRecord = true;
+        
+        $rowCount = count($listTinhThanhPho);
+        if (0 == $rowCount) {
+            $this->view->noRecord = "true";
             return;
         }
 

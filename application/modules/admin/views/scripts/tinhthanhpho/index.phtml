@@ -1,6 +1,6 @@
 <div>
     <div class="float-left"> 
-    <?php
+        <?php
         $arrayOptionsLinkAdd = array("module" => "admin",
             "controller" => "tinhthanhpho",
             "action" => "add");
@@ -13,7 +13,17 @@
     </div>
 </div>
 
-<?php echo $this->flashMessenger() ?>
+<?php
+    echo $this->flashMessenger();
+
+    $noRecord = $this->noRecord ;
+    if($this->noRecord($noRecord)){
+       echo $this->noRecord($noRecord);
+       return;
+    }
+
+?>
+
 <div class="table-responsive">
     <table class="table table-hover text-center">
         <tr class="first-tr">
@@ -27,18 +37,18 @@
             $tenTinhThanhPho = $tinhThanhPho['ten_tinh_thanh_pho'];
             ?>
             <tr>
-                <td><?php echo $idTinhThanhPho; ?></td>
-                <td class="text-overflow"><?php echo $tenTinhThanhPho; ?></td>
-                <td>
+                <td class="text-middle"><?php echo $idTinhThanhPho; ?></td>
+                <td class="text-overflow text-middle"><?php echo $tenTinhThanhPho; ?></td>
+                <td class="text-middle">
                     <a class="btn btn-default" href="<?php echo $this->url(array("module" => "admin", "controller" => "tinhthanhpho", "action" => "edit", "file" => $idTinhThanhPho), null, true); ?>"><i class="fa fa-pencil"></i> Edit</a> &nbsp;&nbsp;
                     <a class="btn btn-default delete-record" data-name="<?php echo $tenTinhThanhPho; ?>" href="<?php echo $this->url(array("module" => "admin", "controller" => "tinhthanhpho", "action" => "delete", "file" => $idTinhThanhPho), null, true); ?>"><i class="fa fa-trash-o"></i> Del</a> 
-                   
+
                 </td>
             </tr>
         <?php endforeach; ?>
 
     </table>
-    
+
     <?php echo $this->paginationControl(NULL, 'Elastic', 'pagination.phtml'); ?>
 
 </div>

@@ -13,9 +13,9 @@ class Admin_View_Helper_FlashMessenger extends Zend_View_Helper_Abstract {
     public function flashMessenger() {
         $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
 
-        if ($flashMessenger->hasMessages('add-successful')) {
+        if ($flashMessenger->hasMessages('add-false')) {
             $html = "<div class= 'message success'> ";
-            foreach ($flashMessenger->getMessages('add-successful') as $msg):
+            foreach ($flashMessenger->getMessages('add-false') as $msg):
                 $html .= "<div class='info-box bg-yellow'>";
                 $html .= "<span class='info-box-icon'><i class='fa fa-exclamation-triangle'></i></span>";
                 $html .= "<div class='info-box-content'>";
@@ -26,6 +26,76 @@ class Admin_View_Helper_FlashMessenger extends Zend_View_Helper_Abstract {
             $html .= " </div>";
             return $html;
         }
+
+        if ($flashMessenger->hasMessages('add-successful')) {
+            $html = "<div class= 'message success'> ";
+            foreach ($flashMessenger->getMessages('add-successful') as $msg):
+                $html .= "<div class='info-box bg-green'>";
+                $html .= "<span class='info-box-icon'><i class='fa fa-thumbs-o-up'></i></span>";
+                $html .= "<div class='info-box-content'>";
+                $html .= "<p> $msg </p>";
+                $html .= "</div>";
+                $html .= "</div>";
+            endforeach;
+            $html .= " </div>";
+            return $html;
+        }
+        
+         if ($flashMessenger->hasMessages('edit-false')) {
+            $html = "<div class= 'message success'> ";
+            foreach ($flashMessenger->getMessages('edit-false') as $msg):
+                $html .= "<div class='info-box bg-yellow'>";
+                $html .= "<span class='info-box-icon'><i class='fa fa-exclamation-triangle'></i></span>";
+                $html .= "<div class='info-box-content'>";
+                $html .= "<p> $msg </p>";
+                $html .= "</div>";
+                $html .= "</div>";
+            endforeach;
+            $html .= " </div>";
+            return $html;
+        }
+
+        if ($flashMessenger->hasMessages('edit-successful')) {
+            $html = "<div class= 'message success'> ";
+            foreach ($flashMessenger->getMessages('edit-successful') as $msg):
+                $html .= "<div class='info-box bg-green'>";
+                $html .= "<span class='info-box-icon'><i class='fa fa-thumbs-o-up'></i></span>";
+                $html .= "<div class='info-box-content'>";
+                $html .= "<p> $msg </p>";
+                $html .= "</div>";
+                $html .= "</div>";
+            endforeach;
+            $html .= " </div>";
+            return $html;
+        }
+
+        if ($flashMessenger->hasMessages('delete-successful')) {
+            $html = "<div class= 'message success'> ";
+            foreach ($flashMessenger->getMessages('delete-successful') as $msg):
+                $html .= "<div class='info-box bg-green'>";
+                $html .= "<span class='info-box-icon'><i class='fa fa-thumbs-o-up'></i></span>";
+                $html .= "<div class='info-box-content'>";
+                $html .= "<p> $msg </p>";
+                $html .= "</div>";
+                $html .= "</div>";
+            endforeach;
+            $html .= " </div>";
+            return $html;
+        }
+        if ($flashMessenger->hasMessages('delete-false')) {
+            $html = "<div class= 'message success'> ";
+            foreach ($flashMessenger->getMessages('delete-false') as $msg):
+                $html .= "<div class='info-box bg-yellow'>";
+                $html .= "<span class='info-box-icon'><i class='fa fa-exclamation-triangle'></i></span>";
+                $html .= "<div class='info-box-content'>";
+                $html .= "<p> $msg </p>";
+                $html .= "</div>";
+                $html .= "</div>";
+            endforeach;
+            $html .= " </div>";
+            return $html;
+        }
+
     }
 
 }

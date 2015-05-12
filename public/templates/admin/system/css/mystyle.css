@@ -43,3 +43,6 @@ and open the template in the editor.
 .float-left{
     float:left !important;
 }
+.text-middle{
+    	vertical-align: middle !important;
+}
