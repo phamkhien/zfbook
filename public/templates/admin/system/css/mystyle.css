@@ -51,11 +51,9 @@ and open the template in the editor.
     width: 50%;
     float:left;
     padding-right: 20px;
-    border-right: 5px #00A65A solid;
-
-
 }
 .div-content-right{
+    border-left: 5px #00A65A solid;
     padding-top: 10px;
     width: 50%;
     float:left;

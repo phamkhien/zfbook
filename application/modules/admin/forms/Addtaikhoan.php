@@ -3,7 +3,7 @@
 class Admin_Form_Addtaikhoan extends Zend_Form {
 
     public function init() {
-
+      
         $this->setMethod('POST');
         $userNameLogin = new Zend_Form_Element_Text('ten_dang_nhap');
         $password = new Zend_Form_Element_Password('mat_khau');
@@ -13,6 +13,7 @@ class Admin_Form_Addtaikhoan extends Zend_Form {
         $userName = new Zend_Form_Element_Text('ho_va_ten');
         $birthday = new Zend_Form_Element_Text('ngay_sinh');
         $sex = new Zend_Form_Element_Select('gioi_tinh');
+        $group_user = new Zend_Form_Element_Select('group_user_id');
         $email = new Zend_Form_Element_Text('email');
         $phone = new Zend_Form_Element_Text('dien_thoai');
         // $timeRegister = new Zend_Form_Element_Hidden('ngay_dang_ky');
@@ -38,13 +39,13 @@ class Admin_Form_Addtaikhoan extends Zend_Form {
 
         $avatar->setAttrib("class", "form-control")
                 ->setDestination(APPLICATION_PATH . '/../public/file/')
-                ;
+        ;
 
         $userName->setAttrib("class", "form-control")
                 ->setAttrib("placeholder", "Họ và tên")
                 ->addFilter('StringTrim')
                 ->setAttrib('maxLength', 50);
-
+        
         $email->setRequired(true)
                 ->setAttrib("class", "form-control")
                 ->setAttrib("placeholder", "Email")
@@ -60,8 +61,12 @@ class Admin_Form_Addtaikhoan extends Zend_Form {
         $birthday->setAttrib("id", "datepicker")
                 ->setAttrib("placeholder", "Ngày sinh")
                 ->setAttrib("class", "form-control");
-        $sex->setLabel("Giới tính")
+       
+        $group_user->setValue('1')
                 ->setAttrib("class", "form-control")
+                ->setMultiOptions($this->getGroupUser());
+        
+        $sex->setAttrib("class", "form-control")
                 ->setMultiOptions($this->getSex());
 
         $submit->setAttrib("class", "btn btn-primary")
@@ -75,6 +80,7 @@ class Admin_Form_Addtaikhoan extends Zend_Form {
         $this->addElement($userName);
         $this->addElement($birthday);
         $this->addElement($sex);
+        $this->addElement($group_user);
         $this->addElement($email);
         $this->addElement($phone);
         $this->addElement($submit);
@@ -87,6 +93,20 @@ class Admin_Form_Addtaikhoan extends Zend_Form {
     protected function getSex() {
         $arraySex = array("1" => "Nam", "2" => "Nữ");
         return $arraySex;
+    }
+     protected function getGroupUser() {
+       $groupUserTable = new Admin_Model_Groupuser;
+       $select = $groupUserTable->select()->from('group_user',
+                    array('idgroup_user', 'ten_group_user'));
+       $listGroupUser = $groupUserTable->fetchAll($select);
+      
+       $arrayGroupUser = array();
+       foreach($listGroupUser as $groupUser){
+           $arrayGroupUser[$groupUser['idgroup_user']] = $groupUser['ten_group_user'];
+       }
+      
+       return $arrayGroupUser;
+       
     }
 
 }

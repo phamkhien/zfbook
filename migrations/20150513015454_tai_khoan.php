@@ -31,6 +31,7 @@ class TaiKhoan extends AbstractMigration {
                 ->addColumn('email', 'string', array('limit' => 50))
                 ->addColumn('dien_thoai', 'string', array('limit' => 20))
                 ->addColumn('ngay_dang_ky', 'datetime')
+                ->addColumn('group_user_id', 'integer')
                 ->save();
 
 //        $this->execute("INSERT INTO nhom_bai_viet(ten_nhom_bai_viet, parent) VALUES ('Xã hội','0'),"

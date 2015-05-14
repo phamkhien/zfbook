@@ -9,7 +9,7 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
     }
 
     public function indexAction() {
-        $this->view->headTitle('Danh sách quận huyện');
+        $this->view->headTitle('Danh sách tài khoản');
 
         $quanhuyenTable = new Admin_Model_Quanhuyen;
         $select = $quanhuyenTable->select()->setIntegrityCheck(FALSE)
@@ -52,26 +52,8 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         if (!$isValid) {
             return;
         }
-        $upload = new Zend_File_Transfer();
 
-// use setDestination, addValidator etc
-        $files = $upload->getFileInfo();
-        foreach ($files as $file) {
-            $file = 'name.ext';
-            $upload->addFilter('Rename', $file);
-            //Do rest of code
-        }
-        $upload->receive();
-//$back = $formAdd->getElement('avatar');
-///* @var $front Zend_Form_Element_File */
-//$tfa = $back->getTransferAdapter();
-///* @var $tfa Zend_File_Transfer_Adapter_Abstract */
-//$tfa->addFilter('Rename', 'dfadf.jpg');
-//        $files = $upload->getFileInfo();
-//        var_dump($files['avatar']['name']);
-////        die();
-//        $upload->addFilter('Rename', array('target' => '/public/file/abc.jpg', 'overwrite' => true), 'avatar');
-//        $upload->receive('avatar');
+        $this->changeFileName('avatar', $formAdd);
 
         $dataFiltered = $formAdd->getValues();
         unset($dataFiltered['repeat_mat_khau']);
@@ -83,7 +65,7 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         }
         $dataFiltered['ngay_sinh'] = date("Y-m-d", strtotime($dataFiltered['ngay_sinh']));
         $dataFiltered['mat_khau'] = md5($dataFiltered['mat_khau']);
-
+        $dataFiltered['ngay_dang_ky'] = date('Y-m-d H:i:s');
 
         $taikhoanTable = new Admin_Model_Taikhoan;
         $add = $taikhoanTable->insert($dataFiltered);
@@ -94,6 +76,7 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         }
 
         $this->_helper->redirector->gotoSimple("add", "taikhoan");
+        
     }
 
     public function editAction() {
@@ -153,6 +136,23 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         }
 
         $this->_helper->redirector->gotoSimple("index", "quanhuyen", "admin");
+    }
+
+    protected function changeFileName($nameElement, $form) {
+        $upload = new Zend_File_Transfer();
+        $pathInfo = pathinfo($upload->getFileName("$nameElement"));
+
+        $fileName = $pathInfo['filename'];
+        $extension = $pathInfo['extension'];
+
+        $fileNameAlias = $this->change_alias($fileName);
+        $fileNameFull = $fileNameAlias . time() . ".$extension";
+
+        $getElementAvatar = $form->getElement('avatar');
+        /* @var $front Zend_Form_Element_File */
+        $getFileTransfer = $getElementAvatar->getTransferAdapter();
+        /* @var $tfa Zend_File_Transfer_Adapter_Abstract */
+        $getFileTransfer->addFilter('Rename', $fileNameFull);
     }
 
 }
