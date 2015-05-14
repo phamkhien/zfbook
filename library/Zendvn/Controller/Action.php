@@ -38,6 +38,7 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/plugins/daterangepicker/daterangepicker-bs3.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/font-awesome.min.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', 'screen')
+                ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/jquery-ui.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/mystyle.css', 'screen');
 
         
