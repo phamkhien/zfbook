@@ -31,24 +31,17 @@ class TaiKhoan extends AbstractMigration {
                 ->addColumn('email', 'string', array('limit' => 50))
                 ->addColumn('dien_thoai', 'string', array('limit' => 20))
                 ->addColumn('ngay_dang_ky', 'datetime')
-                ->addColumn('group_user_id', 'integer')
+                ->addColumn('nhom_tai_khoan_id', 'integer')
                 ->save();
 
-//        $this->execute("INSERT INTO nhom_bai_viet(ten_nhom_bai_viet, parent) VALUES ('Xã hội','0'),"
-//                . "('Thể thao','0'),"
-//                . "('Kinh doanh','0'),"
-//                . "('Văn hóa','0'),"
-//                . "('Giải trí','0'),"
-//                . "('Chính trị','1'), "
-//                . "('Giao thông','1'), "
-//                . "('Bóng đá','2'),"
-//                . "('Môi trường','1'),"
-//                . "('Âm nhạc','5')");
+        $this->execute("INSERT INTO tai_khoan(ten_dang_nhap, mat_khau, nhom_tai_khoan_id, email) VALUES "
+                . "('admin', md5('admin'), 7,'admin@gmail.com'),"
+                . "('member',md5('member'),1, 'member@gmail.com'),"
+                . "('editor',md5('editor'),2, 'editor@gmail.com'),"
+                . "('deleter',md5('deleter'),4, 'delete@gmail.com')");
     }
 
-    /**
-     * Migrate Down.
-     */
+    
     public function down() {
         
     }

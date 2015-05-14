@@ -1,11 +1,7 @@
-
 <?php $form = $this->formAdd; ?>
 <div class="title-action">
     <h2> Thêm mới tài khoản</h2>
 </div>
-<?php
-echo $this->flashMessenger();
-?>
 <div class="div-content-left"> 
     <h4>
         Thông tin bắt buộc
@@ -45,7 +41,7 @@ echo $this->flashMessenger();
         Thông tin bổ sung
     </h4>
       <div class="form-group">
-        <?php echo $form->getElement('group_user_id'); ?>
+        <?php echo $form->getElement('nhom_tai_khoan_id'); ?>
     </div>
     <div class="form-group">
         <div class="input-group">

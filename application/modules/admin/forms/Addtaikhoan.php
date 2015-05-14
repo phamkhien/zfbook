@@ -13,7 +13,7 @@ class Admin_Form_Addtaikhoan extends Zend_Form {
         $userName = new Zend_Form_Element_Text('ho_va_ten');
         $birthday = new Zend_Form_Element_Text('ngay_sinh');
         $sex = new Zend_Form_Element_Select('gioi_tinh');
-        $group_user = new Zend_Form_Element_Select('group_user_id');
+        $group_user = new Zend_Form_Element_Select('nhom_tai_khoan_id');
         $email = new Zend_Form_Element_Text('email');
         $phone = new Zend_Form_Element_Text('dien_thoai');
         // $timeRegister = new Zend_Form_Element_Hidden('ngay_dang_ky');
@@ -95,14 +95,14 @@ class Admin_Form_Addtaikhoan extends Zend_Form {
         return $arraySex;
     }
      protected function getGroupUser() {
-       $groupUserTable = new Admin_Model_Groupuser;
-       $select = $groupUserTable->select()->from('group_user',
-                    array('idgroup_user', 'ten_group_user'));
+       $groupUserTable = new Admin_Model_Nhomtaikhoan;
+       $select = $groupUserTable->select()->from('nhom_tai_khoan',
+                    array('idnhom_tai_khoan', 'ten_nhom_tai_khoan'));
        $listGroupUser = $groupUserTable->fetchAll($select);
       
        $arrayGroupUser = array();
        foreach($listGroupUser as $groupUser){
-           $arrayGroupUser[$groupUser['idgroup_user']] = $groupUser['ten_group_user'];
+           $arrayGroupUser[$groupUser['idnhom_tai_khoan']] = $groupUser['ten_nhom_tai_khoan'];
        }
       
        return $arrayGroupUser;
