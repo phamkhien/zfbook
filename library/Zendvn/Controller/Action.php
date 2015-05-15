@@ -19,11 +19,11 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
         $config = new Zend_Config_Ini($filename, $section);
         $config = $config->toArray();
 
-        $baseUrl = $this->_request->getBaseUrl();
-        $templateUrl = $baseUrl . $config['url'];
-        $cssUrl = $templateUrl . $config['dirCss'];
-        $jsUrl = $templateUrl . $config['dirJs'];
-        $imgUrl = $templateUrl . $config['dirImg'];
+//        $baseUrl = $this->_request->getBaseUrl();
+//        $templateUrl = $baseUrl . $config['url'];
+//        $cssUrl = $templateUrl . $config['dirCss'];
+//        $jsUrl = $templateUrl . $config['dirJs'];
+//        $imgUrl = $templateUrl . $config['dirImg'];
 
         //Nap title cho layout
         $this->view->headLink()
@@ -166,5 +166,24 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
 
         return $alias;
     }
+    public function changeFileName($nameElement, $form) {
+        $upload = new Zend_File_Transfer();
+        if (!$upload->getFileName("$nameElement")) {
+            return;
+        }
+        $pathInfo = pathinfo($upload->getFileName("$nameElement"));
 
+        $fileName = $pathInfo['filename'];
+        $extension = $pathInfo['extension'];
+
+        $fileNameAlias = $this->change_alias($fileName);
+        $fileNameFull = $fileNameAlias . time() . ".$extension";
+
+        $getElementAvatar = $form->getElement($nameElement);
+        /* @var $front Zend_Form_Element_File */
+        $getFileTransfer = $getElementAvatar->getTransferAdapter();
+        /* @var $tfa Zend_File_Transfer_Adapter_Abstract */
+        $getFileTransfer->addFilter('Rename', $fileNameFull);
+        return $fileNameFull;
+    }
 }

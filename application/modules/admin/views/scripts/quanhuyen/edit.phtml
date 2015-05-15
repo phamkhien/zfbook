@@ -2,8 +2,13 @@
 </div>
 
 <?php
-    echo $this->flashMessenger();
+echo $this->flashMessenger();
 ?>
-
-
-<div class="div-content50"> <?php echo $this->formEdit; ?></div>
+<?php
+if ($this->formEdit) {
+    $formEdit = $this->formEdit;
+} else {
+    return;
+}
+?>
+<div class="div-content50"> <?php echo $formEdit; ?></div>

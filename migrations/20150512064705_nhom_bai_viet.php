@@ -2,8 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class NhomBaiViet extends AbstractMigration
-{
+class NhomBaiViet extends AbstractMigration {
     /**
      * Change Method.
      *
@@ -12,22 +11,21 @@ class NhomBaiViet extends AbstractMigration
      *
      * Uncomment this method if you would like to use it.
      *
-    public function change()
-    {
-    }
-    */
-    
+      public function change()
+      {
+      }
+     */
+
     /**
      * Migrate Up.
      */
-    public function up()
-    {
-    $table = $this->table('nhom_bai_viet', array('id' => false, 'primary_key' => 'idnhom_bai_viet'));
-        $table  ->addColumn('idnhom_bai_viet', 'integer', array('identity' => true))
+    public function up() {
+        $table = $this->table('nhom_bai_viet', array('id' => false, 'primary_key' => 'idnhom_bai_viet'));
+        $table->addColumn('idnhom_bai_viet', 'integer', array('identity' => true))
                 ->addColumn('ten_nhom_bai_viet', 'string', array('limit' => 50))
                 ->addColumn('parent', 'integer')
                 ->save();
-        
+
         $this->execute("INSERT INTO nhom_bai_viet(ten_nhom_bai_viet, parent) VALUES ('Xã hội','0'),"
                 . "('Thể thao','0'),"
                 . "('Kinh doanh','0'),"
@@ -37,14 +35,14 @@ class NhomBaiViet extends AbstractMigration
                 . "('Giao thông','1'), "
                 . "('Bóng đá','2'),"
                 . "('Môi trường','1'),"
-                . "('Âm nhạc','5')"); 
+                . "('Âm nhạc','5')");
     }
 
     /**
      * Migrate Down.
      */
-    public function down()
-    {
-
+    public function down() {
+        
     }
+
 }

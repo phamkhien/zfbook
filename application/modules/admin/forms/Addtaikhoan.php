@@ -38,7 +38,7 @@ class Admin_Form_Addtaikhoan extends Zend_Form {
                 ->addValidator('stringLength', false, array(3, 50));
 
         $avatar->setAttrib("class", "form-control")
-                ->setDestination(APPLICATION_PATH . '/../public/file/')
+                ->setDestination(APPLICATION_PATH . '/../public/file/avatar')
         ;
 
         $userName->setAttrib("class", "form-control")

@@ -52,7 +52,7 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
             return;
         }
 
-        $this->changeFileName('avatar', $formAdd);
+        $fullNameAvatar = $this->changeFileName('avatar', $formAdd);
 
         $dataFiltered = $formAdd->getValues();
 
@@ -60,6 +60,8 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
 
         if (!$dataFiltered['avatar']) {
             unset($dataFiltered['avatar']);
+        } else {
+            $dataFiltered['avatar'] = 'avatar/' . $fullNameAvatar;
         }
 
         $dataFiltered['ngay_sinh'] = date("Y-m-d", strtotime($dataFiltered['ngay_sinh']));
@@ -85,12 +87,13 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         }
         $taiKhoanTable = new Admin_Model_Taikhoan;
         $rowDataTaiKhoan = $taiKhoanTable->fetchRow(array("idtai_khoan = ?" => $file));
-        $arrayRowDataTaiKhoan = $rowDataTaiKhoan->toArray();
-        $arrayRowDataTaiKhoan['ngay_sinh'] = date("d-m-Y", strtotime($arrayRowDataTaiKhoan['ngay_sinh']));
         if ($rowDataTaiKhoan == NULL) {
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
             return;
         }
-
+        $arrayRowDataTaiKhoan = $rowDataTaiKhoan->toArray();
+        $arrayRowDataTaiKhoan['ngay_sinh'] = date("d-m-Y", strtotime($arrayRowDataTaiKhoan['ngay_sinh']));
         $formEdit = new Admin_Form_Addtaikhoan;
         $formEdit->populate($arrayRowDataTaiKhoan);
         $this->view->formEdit = $formEdit;
@@ -111,14 +114,17 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         if (!$isValid) {
             return;
         }
-        $this->changeFileName('avatar', $formEdit);
+        $fullNameAvatar = $this->changeFileName('avatar', $formAdd);
         $dataFiltered = $formEdit->getValues();
 
         unset($dataFiltered['repeat_mat_khau']);
 
         if (!$dataFiltered['avatar']) {
             unset($dataFiltered['avatar']);
+        } else {
+            $dataFiltered['avatar'] = 'avatar/' . $fullNameAvatar;
         }
+        
         if ($rowDataTaiKhoan->mat_khau == md5($dataFiltered['mat_khau'])) {
             unset($dataFiltered['mat_khau']);
         } else {
@@ -151,26 +157,6 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
             $this->_helper->FlashMessenger()->setNamespace('delete-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được xóa!');
         }
         $this->_helper->redirector->gotoSimple("index", "taikhoan", "admin");
-    }
-
-    protected function changeFileName($nameElement, $form) {
-        $upload = new Zend_File_Transfer();
-        if (!$upload->getFileName("$nameElement")) {
-            return;
-        }
-        $pathInfo = pathinfo($upload->getFileName("$nameElement"));
-
-        $fileName = $pathInfo['filename'];
-        $extension = $pathInfo['extension'];
-
-        $fileNameAlias = $this->change_alias($fileName);
-        $fileNameFull = $fileNameAlias . time() . ".$extension";
-
-        $getElementAvatar = $form->getElement('avatar');
-        /* @var $front Zend_Form_Element_File */
-        $getFileTransfer = $getElementAvatar->getTransferAdapter();
-        /* @var $tfa Zend_File_Transfer_Adapter_Abstract */
-        $getFileTransfer->addFilter('Rename', $fileNameFull);
     }
 
 }

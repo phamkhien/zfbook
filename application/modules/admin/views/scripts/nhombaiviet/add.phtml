@@ -2,5 +2,12 @@
 <div class="title-action">
     <h2> Thêm mới nhóm bài viết</h2>
 </div>
+<?php
+if ($this->formAdd) {
+    $formAdd = $this->formAdd;
+} else {
+    return;
+}
+?>
 
-<div class="div-content50"> <?php echo $this->formAdd; ?></div>
+<div class="div-content50"> <?php echo $formAdd; ?></div>
