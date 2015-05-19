@@ -16,7 +16,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 // Define path to Public directory
 define("PUBLIC_PATH", realpath(dirname(__FILE__).'/public'));
-
 // Define path to Templates directory
 define('TEMPLATE_PATH', PUBLIC_PATH . '/templates');
 

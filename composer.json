@@ -3,8 +3,8 @@
     "require": {
         "zendframework/zendframework1": "1.*",
         "robmorgan/phinx": "*"
+
     },
-    
     "authors": [
         {
             "name": "phamkhien",

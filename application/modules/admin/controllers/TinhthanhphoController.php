@@ -11,8 +11,14 @@ class Admin_TinhthanhphoController extends Zendvn_Controller_Action {
     public function indexAction() {
         $this->view->headTitle('Danh sách tỉnh thành phố');
         $tinhThanhPhoTable = new Admin_Model_Tinhthanhpho;
-        $listTinhThanhPho = $tinhThanhPhoTable->fetchAll();
-        
+        $search = $this->getParam("search");
+        $select = $tinhThanhPhoTable->select();
+        if ($search) {
+            $select->where('ten_tinh_thanh_pho LIKE ?', "%$search%");
+        }
+
+        $listTinhThanhPho = $tinhThanhPhoTable->fetchAll($select);
+
         $rowCount = count($listTinhThanhPho);
         if (0 == $rowCount) {
             $this->view->noRecord = "true";

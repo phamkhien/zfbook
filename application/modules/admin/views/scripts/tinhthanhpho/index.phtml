@@ -1,34 +1,39 @@
-<div>
-    <div class="float-left"> 
-        <?php
-        $arrayOptionsLinkAdd = array("module" => "admin",
-            "controller" => "tinhthanhpho",
-            "action" => "add");
-        $linkAdd = $this->url($arrayOptionsLinkAdd, null, true);
-        ?>
-        <a href="<?php echo $linkAdd; ?>" class="btn btn-primary">Add</a> 
-    </div>
-    <div class="title-action">
-        <h2> Danh sách tỉnh thành phố</h2>
+<div class="clear-float">
+    <div class="row text-middle border-butom">
+        <div class="col-sm-2 col-xs-5">   
+            <?php
+            $arrayOptionsLinkAdd = array("module" => "admin",
+                "controller" => "tinhthanhpho",
+                "action" => "add");
+            $linkAdd = $this->url($arrayOptionsLinkAdd, null, true);
+            ?>
+            <a href="<?php echo $linkAdd; ?>" class="btn btn-primary">Add</a> </div>
+        <div class="col-sm-7 col-xs-12"> <p class="title-action"> Danh sách tỉnh thành phố</p></div>
+        <div class="col-sm-3 col-xs-12"> 
+
+            <form method="GET">
+                <input name="search"type="text" placeholder="Search...">
+            </form>
+        </div>
     </div>
 </div>
 
+
 <?php
-    echo $this->flashMessenger();
+echo $this->flashMessenger();
 
-    $noRecord = $this->noRecord ;
-    if($this->noRecord($noRecord)){
-       echo $this->noRecord($noRecord);
-       return;
-    }
-
+$noRecord = $this->noRecord;
+if ($this->noRecord($noRecord)) {
+    echo $this->noRecord($noRecord);
+    return;
+}
 ?>
 
 <div class="table-responsive">
     <table class="table table-hover text-center">
         <tr class="first-tr">
             <td>Id</td>
-            <td>Tên nhóm bài viết</td>
+            <td>Tên tỉnh thành phố</td>
             <td>Hành động</td>
         </tr>
         <?php

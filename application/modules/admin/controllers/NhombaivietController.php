@@ -10,14 +10,10 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
 
     public function indexAction() {
         $this->view->headTitle('Danh sách nhóm bài viết');
-//        if($this->_helper->flashMessenger()->hasMessages('delete-false')){
-//             var_dump($this->_helper->flashMessenger()->getMessages('delete-false'));
-//         die();
-//        }
-        //$this->view->messages = $this->_helper->flashMessenger()->getMessages();
-
+        
+        $search =  $search = $this->getParam("search");
         $arrayParent = $this->getArrayParent(null, 0, "--");
-        $listNhomBaiViet = $this->getAllNhomBaiViet(null, 0);
+        $listNhomBaiViet = $this->getAllNhomBaiViet(null, 0, $search);
 
         $rowCount = count($listNhomBaiViet);
         if (0 == $rowCount) {
@@ -155,10 +151,12 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         return $arrayParent;
     }
 
-    protected function getAllNhomBaiViet($arrayParent, $parent) {
+    protected function getAllNhomBaiViet($arrayParent, $parent, $search) {
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
         $select = $nhomBaiVietTable->select()->where("parent=?", $parent)->order("idnhom_bai_viet DESC");
-        //$listNhomBaiViet = $nhomBaiVietTable->fetchAll(array("parent=?" => $parent));
+       if ($search) {
+            $select ->where('ten_nhom_bai_viet LIKE ?', "%$search%");
+        }
         $listNhomBaiViet = $nhomBaiVietTable->fetchAll($select);
 
         foreach ($listNhomBaiViet as $nhomBaiViet) {
@@ -166,7 +164,7 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
             $tenNhomBaiViet = $nhomBaiViet->ten_nhom_bai_viet;
             $parentNhomBaiViet = $nhomBaiViet->parent;
             $arrayParent[] = array("idnhom_bai_viet" => $idNhomBaiViet, "ten_nhom_bai_viet" => $tenNhomBaiViet, "parent" => $parentNhomBaiViet);
-            $arrayParent = $this->getAllNhomBaiViet($arrayParent, $nhomBaiViet['idnhom_bai_viet']);
+            $arrayParent = $this->getAllNhomBaiViet($arrayParent, $nhomBaiViet['idnhom_bai_viet'],$search);
         }
         return $arrayParent;
     }

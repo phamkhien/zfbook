@@ -10,9 +10,14 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
 
     public function indexAction() {
         $this->view->headTitle('Danh sách tài khoản');
+        $search = $this->getParam("search");
 
         $taiKhoanTable = new Admin_Model_Taikhoan;
-        $select = $taiKhoanTable->select()->setIntegrityCheck(FALSE)
+        $select = $taiKhoanTable->select();
+        if ($search) {
+            $select->where('ten_dang_nhap LIKE ?', "%$search%");
+        }
+        $select->setIntegrityCheck(FALSE)
                 ->from('tai_khoan')
                 ->joinInner("nhom_tai_khoan", "tai_khoan.nhom_tai_khoan_id=nhom_tai_khoan.idnhom_tai_khoan", array('ten_nhom_tai_khoan'))
                 ->order('ten_nhom_tai_khoan ASC')
@@ -124,7 +129,7 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         } else {
             $dataFiltered['avatar'] = 'avatar/' . $fullNameAvatar;
         }
-        
+
         if ($rowDataTaiKhoan->mat_khau == md5($dataFiltered['mat_khau'])) {
             unset($dataFiltered['mat_khau']);
         } else {

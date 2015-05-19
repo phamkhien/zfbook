@@ -9,7 +9,37 @@ class Admin_BaivietController extends Zendvn_Controller_Action {
     }
 
     public function indexAction() {
-        
+        $this->view->headTitle('Danh sách bài viết');
+
+
+        $baiVietTable = new Admin_Model_Baiviet;
+
+        $search = $this->getParam("search");
+        $select =$baiVietTable->select();
+        if ($search) {
+            $select ->where('tieu_de LIKE ?', "%$search%");
+        }
+        $select ->setIntegrityCheck(FALSE)
+                ->from('bai_viet')
+                ->joinInner("nhom_bai_viet", "bai_viet.nhom_bai_viet_id=nhom_bai_viet.idnhom_bai_viet", array('ten_nhom_bai_viet'))
+                ->order('idbai_viet DESC');
+        // ->order('ten_nhom_bai_viet ASC');
+
+        $listBaiViet = $baiVietTable->fetchAll($select);
+
+        $rowCount = count($listBaiViet);
+        if (0 == $rowCount) {
+            $this->view->noRecord = "true";
+            return;
+        }
+
+        $items = 10;
+        $page = $this->getParam('page', 1);
+        $paginator = Zend_Paginator::factory($listBaiViet);
+        $paginator->setItemCountPerPage($items);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setPageRange(4);
+        $this->view->paginator = $paginator;
     }
 
     public function addAction() {

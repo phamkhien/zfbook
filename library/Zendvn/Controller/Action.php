@@ -41,7 +41,7 @@ class Zendvn_Controller_Action extends Zend_Controller_Action {
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/jquery-ui.css', 'screen')
                 ->appendStylesheet(TEMPLATE_URL . '/admin/system/css/mystyle.css', 'screen');
 
-
+        
         //Nap cac the meta vao layout
         if (count($config['metaHttp']) > 0) {
             foreach ($config['metaHttp'] as $key => $value) {

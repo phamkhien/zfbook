@@ -12,6 +12,14 @@ and open the template in the editor.
     color: #1392e9;
     font-weight: bold;
     text-align: center;  
+    font-size: 24px;
+}
+.line-buttom {
+    border-bottom: 2px solid #00A65A;
+     clear: both;
+     padding-bottom: 10px;
+}
+.border-butom{
     border-bottom: 2px solid #00A65A;
 }
 .div-content50{
@@ -43,6 +51,12 @@ and open the template in the editor.
 .float-left{
     float:left !important;
 }
+.float-right{
+    float:right !important;
+}
+.clear-float{
+    clear: both;
+}
 .text-middle{
     vertical-align: middle !important;
 }
@@ -64,6 +78,5 @@ and open the template in the editor.
     padding-top: 10px;
     width: 100%;
     float:left;
-    padding-left: 20px;
 
 }

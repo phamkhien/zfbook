@@ -10,17 +10,21 @@ class Admin_QuanhuyenController extends Zendvn_Controller_Action {
 
     public function indexAction() {
         $this->view->headTitle('Danh sách quận huyện');
-        
+
         $quanhuyenTable = new Admin_Model_Quanhuyen;
-        $select = $quanhuyenTable->select()->setIntegrityCheck(FALSE)
+        $search = $this->getParam("search");
+        $select = $quanhuyenTable->select();
+        if ($search) {
+            $select->where('ten_quan_huyen LIKE ?', "%$search%");
+        }
+        $select->setIntegrityCheck(FALSE)
                 ->from('quan_huyen')
-                ->joinInner("tinh_thanh_pho", 
-                        "quan_huyen.tinh_thanh_pho_id=tinh_thanh_pho.idtinh_thanh_pho", 
-                        array('ten_tinh_thanh_pho'))
+                ->joinInner("tinh_thanh_pho", "quan_huyen.tinh_thanh_pho_id=tinh_thanh_pho.idtinh_thanh_pho", array('ten_tinh_thanh_pho'))
                 ->order('ten_tinh_thanh_pho ASC')
-                ->order('ten_quan_huyen ASC');;
+                ->order('ten_quan_huyen ASC');
+        ;
         $listQuanHuyen = $quanhuyenTable->fetchAll($select);
-      
+
         $rowCount = count($listQuanHuyen);
         if (0 == $rowCount) {
             $this->view->noRecord = "true";
