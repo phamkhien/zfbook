@@ -1,0 +1,42 @@
+
+<div class="title-action line-buttom">
+    Nhập hàng vào kho
+</div>
+<?php
+if ($this->formAdd) {
+    $formAdd = $this->formAdd;
+} else {
+    return;
+}
+?>
+
+<div class="div-content100">
+    <form class="form-horizontal" method="POST">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Mau sac</label>
+            <div class="col-sm-2">
+                <?php echo $formAdd->mau_sac_id;
+                ?>
+            </div>
+
+            <div class="col-sm-9">
+                <?php
+                $optionsKichThuoc = $formAdd->kich_thuoc_id->options;
+                foreach ($optionsKichThuoc as $key => $val) :
+                    ?>
+                    <div class="row"> 
+                        <label class="col-sm-2">Kích thước</label>
+                        <div class="col-sm-3"><input type="checkbox" name="kich_thuoc_id[]" value="<?php echo $key; ?>" /><?php echo $val; ?></div>
+                        <label class="col-sm-2">Số lượng</label>
+                        <div class="col-sm-5"><?php echo $formAdd->so_luong->setAttrib("name", "so_luong[$key]"); ?></div>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
+        </div>
+
+
+        <?php echo $formAdd->submit; ?>
+
+    </form>
+</div>

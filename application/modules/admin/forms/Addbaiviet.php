@@ -9,7 +9,7 @@ class Admin_Form_Addbaiviet extends Zend_Form {
         $info = new Zend_Form_Element_Textarea('gioi_thieu');
         $picture = new Zend_Form_Element_File('hinh_minh_hoa');
         $content = new Zend_Form_Element_Textarea('noi_dung');
-      $status = new Zend_Form_Element_Select('trang_thai');
+        $status = new Zend_Form_Element_Select('trang_thai');
         $category = new Zend_Form_Element_Select('nhom_bai_viet_id');
 
         $submit = new Zend_Form_Element_Submit('submit');
@@ -39,17 +39,18 @@ class Admin_Form_Addbaiviet extends Zend_Form {
         $status->setValue('1')
                 ->setAttrib("class", "form-control")
                 ->setMultiOptions($this->getStatus());
+
         $arrayParent = array();
         $category->setAttrib("class", "form-control")
                 ->setMultiOptions($this->getCategory($arrayParent, 0, null));
 
         $submit->setAttrib("class", "btn btn-primary")
                 ->setAttrib("value ", "Submit")
-                ->setAttrib("id ", "submit-register");
+                ->setAttrib("id ", "submit");
 
         $this->addElement($title);
         $this->addElement($submit);
-      $this->addElement($status);
+        $this->addElement($status);
         $this->addElement($category);
         $this->addElement($picture);
         $this->addElement($content);
@@ -62,26 +63,26 @@ class Admin_Form_Addbaiviet extends Zend_Form {
     }
 
     protected function getCategory($arrayParent, $parent, $style = "") {
-
         $nhomBaiVietTable = new Admin_Model_Nhombaiviet;
         $select = $nhomBaiVietTable->select()->where("parent=?", $parent)->order("idnhom_bai_viet DESC");
         $listNhomBaiViet = $nhomBaiVietTable->fetchAll($select);
         $styles = $style . "--";
-       
+
         foreach ($listNhomBaiViet as $nhomBaiViet) {
             $arrayParent[$nhomBaiViet['idnhom_bai_viet']] = $style . $nhomBaiViet['ten_nhom_bai_viet'];
             $arrayParent = $this->getCategory($arrayParent, $nhomBaiViet['idnhom_bai_viet'], $styles);
         }
-     
+
         return $arrayParent;
     }
-    protected function getStatus (){
-       $arraySatus =  array(
-       Admin_Model_Baiviet::PREVIEW=> "Đăng bài",
-             Admin_Model_Baiviet::DRAP => "Lưu tạm chưa đăng (Nháp)"
+
+    protected function getStatus() {
+        $arraySatus = array(
+            Admin_Model_Baiviet::PREVIEW => "Đăng bài",
+            Admin_Model_Baiviet::DRAP => "Lưu tạm chưa đăng (Nháp)"
         );
-       
-       return $arraySatus;
+
+        return $arraySatus;
     }
 
 }

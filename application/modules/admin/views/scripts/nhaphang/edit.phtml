@@ -1,0 +1,14 @@
+<div class="title-action line-buttom">Sửa đổi nhóm bài viết
+</div>
+
+<?php
+echo $this->flashMessenger();
+?>
+<?php
+    if ($this->formEdit) {
+        $formEdit = $this->formEdit;
+    } else {
+        return;
+    }
+?>
+<div class="div-content50"> <?php echo $formEdit; ?></div>

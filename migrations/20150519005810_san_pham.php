@@ -25,17 +25,15 @@ class SanPham extends AbstractMigration {
                 ->addColumn('ma_san_pham', 'string', array('limit' => 50))
                 ->addColumn('ten_san_pham', 'string', array('limit' => 50))
                 ->addColumn('gioi_tinh', 'integer')
-                ->addColumn('xuat_xu', 'string', array('limit' => 50))
-                ->addColumn('do_cao', 'string', array('limit' => 50))
                 ->addColumn('gia_nhap', 'float')
                 ->addColumn('gia_de_xuat', 'float')
                 ->addColumn('gia_ban', 'float')
+                ->addColumn('do_cao_id', 'integer')
+                ->addColumn('xuat_xu_id', 'integer')
                 ->addColumn('nhom_san_pham_id', 'integer')
                 ->addColumn('chat_lieu_id', 'integer')
                 ->addColumn('tinh_trang_id', 'integer')
-                ->addColumn('mau_sac', 'integer')
                 ->save();
-
     }
 
     /**

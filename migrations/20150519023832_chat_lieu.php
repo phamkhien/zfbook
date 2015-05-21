@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class ThuocTinh extends AbstractMigration {
+class ChatLieu extends AbstractMigration {
     /**
      * Change Method.
      *
@@ -20,13 +20,13 @@ class ThuocTinh extends AbstractMigration {
      * Migrate Up.
      */
     public function up() {
-        $table = $this->table('thuoc_tinh', array('id' => false, 'primary_key' => 'idthuoc_tinh'));
-        $table->addColumn('idthuoc_tinh', 'integer', array('identity' => true))
-                ->addColumn('san_pham_id', 'integer')
-                ->addColumn('kich_thuoc_id', 'integer')
-                ->addColumn('mau_sac_id', 'integer')
-                ->addColumn('so_luong', 'integer')
+        $table = $this->table('chat_lieu', array('id' => false, 'primary_key' => 'idchat_lieu'));
+        $table->addColumn('idchat_lieu', 'integer', array('identity' => true))
+                ->addColumn('ten_chat_lieu', 'string', array('limit' => 50))
                 ->save();
+
+        $this->execute("INSERT INTO chat_lieu(ten_chat_lieu) VALUES ('Da'),"
+                . "('Vải')");
     }
 
     /**
