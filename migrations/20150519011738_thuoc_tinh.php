@@ -26,6 +26,7 @@ class ThuocTinh extends AbstractMigration {
                 ->addColumn('kich_thuoc_id', 'integer')
                 ->addColumn('mau_sac_id', 'integer')
                 ->addColumn('so_luong', 'integer')
+                ->addColumn('hoa_don_nhap_id', 'integer')
                 ->save();
     }
 

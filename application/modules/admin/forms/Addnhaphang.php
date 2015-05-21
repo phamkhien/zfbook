@@ -8,7 +8,7 @@ class Admin_Form_Addnhaphang extends Zend_Form {
         $kichThuoc = new Zend_Form_Element_MultiCheckbox('kich_thuoc_id');
         $soLuong = new Zend_Form_Element_Text('so_luong');
         $submit = new Zend_Form_Element_Submit('submit');
-
+        $submitDonHang = new Zend_Form_Element_Submit('submit_donhang');
 
         $soLuong->setAttrib("class", "form-control")
                 ->setAttrib("placeholder", "Số lượng");
@@ -22,11 +22,13 @@ class Admin_Form_Addnhaphang extends Zend_Form {
         $submit->setAttrib("class", "btn btn-primary")
                 ->setAttrib("value ", "Submit")
                 ->setAttrib("id ", "submit");
-
+        $submitDonHang -> setAttrib("class", "btn btn-primary")
+                        ->setAttrib("value ", "Submit_donhang");
         $this->addElement($mauSac);
         $this->addElement($kichThuoc);
         $this->addElement($soLuong);
         $this->addElement($submit);
+        $this->addElement($submitDonHang);
 
 
 
