@@ -60,14 +60,14 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
 
         $checkSameName = $nhomBaiVietTable->fetchRow(array("ten_nhom_bai_viet = ?" => $dataFiltered['ten_nhom_bai_viet']));
         if ($checkSameName) {
-            $this->_helper->FlashMessenger()->setNamespace('add-false')->addMessage('Tên <b>nhóm bài viết</b> đã tồn tại!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('add-false')->addMessage('Tên <b>nhóm bài viết</b> đã tồn tại!');
             $this->_helper->redirector->gotoSimple("index", "nhombaiviet");
         }
         $add = $nhomBaiVietTable->insert($dataFiltered);
         if ($add) {
-            $this->_helper->FlashMessenger()->setNamespace('add-successful')->addMessage('Bản ghi đã được thêm thành công!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('add-successful')->addMessage('Bản ghi đã được thêm thành công!');
         } else {
-            $this->_helper->FlashMessenger()->setNamespace('add-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được thêm mới!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('add-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được thêm mới!');
         }
 
         $this->_helper->redirector->gotoSimple("index", "nhombaiviet");
@@ -103,10 +103,10 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
 
         $edit = $nhomBaiVietTable->update($dataFiltered, array("idnhom_bai_viet =?" => $file));
         if ($edit) {
-            $this->_helper->FlashMessenger()->setNamespace('edit-successful')->addMessage('Bản ghi đã được sửa đổi thành công!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('edit-successful')->addMessage('Bản ghi đã được sửa đổi thành công!');
         } else {
             //$this->_helper->flashMessenger()->addMessage('Post created!', 'delete-false');
-            $this->_helper->FlashMessenger()->setNamespace('edit-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được sửa đổi!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('edit-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được sửa đổi!');
             // $this->_helper->flashMessenger(array("delete-false"=>"Bản ghi đã được xóa thành công!"));
         }
 
@@ -124,16 +124,16 @@ class Admin_NhombaivietController extends Zendvn_Controller_Action {
         $dataNhomBaiViet = $nhomBaiVietTable->fetchRow(array("parent=?" => $file));
 
         if (!empty($dataNhomBaiViet)) {
-            $this->_helper->FlashMessenger()->setNamespace('delete-false')->addMessage('Tồn tại bản ghi con thuộc <b>Nhóm bài viết</b> này. Vui lòng xóa hết các bản ghi con trước khi xóa bản ghi hiện tại!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('delete-false')->addMessage('Tồn tại bản ghi con thuộc <b>Nhóm bài viết</b> này. Vui lòng xóa hết các bản ghi con trước khi xóa bản ghi hiện tại!');
             $this->_helper->redirector->gotoSimple("index", "nhombaiviet", "admin");
             return;
         }
         $delete = $nhomBaiVietTable->delete(array("idnhom_bai_viet =?" => $file));
         if ($delete) {
-            $this->_helper->FlashMessenger()->setNamespace('delete-successful')->addMessage('Bản ghi đã được xóa thành công!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('delete-successful')->addMessage('Bản ghi đã được xóa thành công!');
         } else {
             //$this->_helper->flashMessenger()->addMessage('Post created!', 'delete-false');
-            $this->_helper->FlashMessenger()->setNamespace('delete-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được xóa!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('delete-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được xóa!');
             // $this->_helper->flashMessenger(array("delete-false"=>"Bản ghi đã được xóa thành công!"));
         }
 

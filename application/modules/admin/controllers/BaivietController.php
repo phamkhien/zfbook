@@ -75,11 +75,11 @@ class Admin_BaivietController extends Zendvn_Controller_Action {
         $baiVietTable = new Admin_Model_Baiviet;
         $add = $baiVietTable->insert($dataFiltered);
         if ($add) {
-            $this->_helper->FlashMessenger()
+            $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('add-successful')
                     ->addMessage('Bản ghi đã được thêm thành công!');
         } else {
-            $this->_helper->FlashMessenger()
+            $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('add-false')
                     ->addMessage('Có lỗi xảy ra, bản ghi chưa được thêm mới!');
         }
@@ -125,9 +125,9 @@ class Admin_BaivietController extends Zendvn_Controller_Action {
 
         $edit = $baiVietTable->update($dataFiltered, array("idbai_viet = ?" => $file));
         if ($edit) {
-            $this->_helper->FlashMessenger()->setNamespace('edit-successful')->addMessage('Bản ghi đã được sửa đổi thành công!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('edit-successful')->addMessage('Bản ghi đã được sửa đổi thành công!');
         } else {
-            $this->_helper->FlashMessenger()->setNamespace('edit-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được sửa đổi!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('edit-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được sửa đổi!');
         }
 
         $this->_helper->redirector->gotoSimple("edit", "baiviet", "admin", array("file" => $file));
@@ -144,9 +144,9 @@ class Admin_BaivietController extends Zendvn_Controller_Action {
 
         $delete = $baiVietTable->delete(array("idbai_viet =?" => $file));
         if ($delete) {
-            $this->_helper->FlashMessenger()->setNamespace('delete-successful')->addMessage('Bản ghi đã được xóa thành công!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('delete-successful')->addMessage('Bản ghi đã được xóa thành công!');
         } else {
-            $this->_helper->FlashMessenger()->setNamespace('delete-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được xóa!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('delete-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được xóa!');
         }
         $this->_helper->redirector->gotoSimple("index", "baiviet", "admin");
     }

@@ -76,9 +76,9 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         $taiKhoanTable = new Admin_Model_Taikhoan;
         $add = $taiKhoanTable->insert($dataFiltered);
         if ($add) {
-            $this->_helper->FlashMessenger()->setNamespace('add-successful')->addMessage('Bản ghi đã được thêm thành công!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('add-successful')->addMessage('Bản ghi đã được thêm thành công!');
         } else {
-            $this->_helper->FlashMessenger()->setNamespace('add-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được thêm mới!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('add-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được thêm mới!');
         }
 
         $this->_helper->redirector->gotoSimple("index", "taikhoan");
@@ -138,9 +138,9 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
         $dataFiltered['ngay_sinh'] = date("Y-m-d", strtotime($dataFiltered['ngay_sinh']));
         $edit = $taiKhoanTable->update($dataFiltered, array("idtai_khoan = ?" => $file));
         if ($edit) {
-            $this->_helper->FlashMessenger()->setNamespace('edit-successful')->addMessage('Bản ghi đã được sửa đổi thành công!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('edit-successful')->addMessage('Bản ghi đã được sửa đổi thành công!');
         } else {
-            $this->_helper->FlashMessenger()->setNamespace('edit-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được sửa đổi!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('edit-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được sửa đổi!');
         }
 
         $this->_helper->redirector->gotoSimple("edit", "taikhoan", "admin", array("file" => $file));
@@ -157,9 +157,9 @@ class Admin_TaikhoanController extends Zendvn_Controller_Action {
 
         $delete = $taikhoanTable->delete(array("idtai_khoan =?" => $file));
         if ($delete) {
-            $this->_helper->FlashMessenger()->setNamespace('delete-successful')->addMessage('Bản ghi đã được xóa thành công!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('delete-successful')->addMessage('Bản ghi đã được xóa thành công!');
         } else {
-            $this->_helper->FlashMessenger()->setNamespace('delete-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được xóa!');
+            $this->_helper->getHelper('FlashMessenger')->setNamespace('delete-false')->addMessage('Có lỗi xảy ra, bản ghi chưa được xóa!');
         }
         $this->_helper->redirector->gotoSimple("index", "taikhoan", "admin");
     }

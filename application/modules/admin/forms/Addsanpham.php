@@ -12,14 +12,14 @@ class Admin_Form_Addsanpham extends Zend_Form {
         $giamGia = new Zend_Form_Element_Select('giam_gia_id');
         $giaBan = new Zend_Form_Element_Text('gia_ban');
         $gioiTinh = new Zend_Form_Element_Select('gioi_tinh');
-        $xuatXu = new Zend_Form_Element_Select('xuat_xu');
-        $doCao = new Zend_Form_Element_Select('do_cao');
+        $xuatXu = new Zend_Form_Element_Select('xuat_xu_id');
+        $doCao = new Zend_Form_Element_Select('do_cao_id');
         $NhomSanPham = new Zend_Form_Element_Select('nhom_san_pham_id');
         $chatLieu = new Zend_Form_Element_Select('chat_lieu_id');
         $tinhTrang = new Zend_Form_Element_Select('tinh_trang_id');
-        $mauSac = new Zend_Form_Element_Select('mau_sac_id');
-        $kichThuoc = new Zend_Form_Element_Select('kich_thuoc_id');
-        $soLuong = new Zend_Form_Element_Text('so_luong');
+//        $mauSac = new Zend_Form_Element_Select('mau_sac_id');
+//        $kichThuoc = new Zend_Form_Element_Select('kich_thuoc_id');
+//        $soLuong = new Zend_Form_Element_Text('so_luong');
         $submit = new Zend_Form_Element_Submit('submit');
 
 
@@ -39,11 +39,11 @@ class Admin_Form_Addsanpham extends Zend_Form {
                 ->setAttrib("placeholder", "Giá đề xuất")
                 ->addFilter('StringTrim')
                 ->addValidator('Digits');
-        $soLuong->setRequired(true)
-                ->setAttrib("class", "form-control")
-                ->setAttrib("placeholder", "Số lượng")
-                ->addFilter('StringTrim')
-                ->addValidator('Digits');
+//        $soLuong->setRequired(true)
+//                ->setAttrib("class", "form-control")
+//                ->setAttrib("placeholder", "Số lượng")
+//                ->addFilter('StringTrim')
+//                ->addValidator('Digits');
 
         $giaBan->setRequired(true)
                 ->setAttrib("class", "form-control")
@@ -65,12 +65,12 @@ class Admin_Form_Addsanpham extends Zend_Form {
 
         $xuatXu->setAttrib("class", "form-control")
                 ->setMultiOptions($this->getXuatXu());
-
-        $mauSac->setAttrib("class", "form-control")
-                ->setMultiOptions($this->getMauSac());
-
-        $kichThuoc->setAttrib("class", "form-control")
-                ->setMultiOptions($this->getKichThuoc());
+//
+//        $mauSac->setAttrib("class", "form-control")
+//                ->setMultiOptions($this->getMauSac());
+//
+//        $kichThuoc->setAttrib("class", "form-control")
+//                ->setMultiOptions($this->getKichThuoc());
         $doCao->setAttrib("class", "form-control")
                 ->setMultiOptions($this->getDoCao());
 
@@ -100,9 +100,9 @@ class Admin_Form_Addsanpham extends Zend_Form {
         $this->addElement($NhomSanPham);
         $this->addElement($chatLieu);
         $this->addElement($tinhTrang);
-        $this->addElement($mauSac);
-        $this->addElement($kichThuoc);
-        $this->addElement($soLuong);
+//        $this->addElement($mauSac);
+//        $this->addElement($kichThuoc);
+//        $this->addElement($soLuong);
         $this->addElement($submit);
 
 

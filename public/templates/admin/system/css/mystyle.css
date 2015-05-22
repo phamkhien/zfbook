@@ -16,8 +16,8 @@ and open the template in the editor.
 }
 .line-buttom {
     border-bottom: 2px solid #00A65A;
-     clear: both;
-     padding-bottom: 10px;
+    clear: both;
+    padding-bottom: 10px;
 }
 .border-butom{
     border-bottom: 2px solid #00A65A;
@@ -79,4 +79,11 @@ and open the template in the editor.
     width: 100%;
     float:left;
 
+}
+.rowsp{
+    margin-top: 5px;
+    vertical-align: middle !important;
+}
+.line-height34{
+    float:left;
 }

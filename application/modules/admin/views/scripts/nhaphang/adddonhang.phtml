@@ -3,17 +3,29 @@
     $sessionCart = new Zend_Session_Namespace('cart');
     $listCart = $sessionCart->cart;
     ?>
-    Đơn hàng
+     Chi tiết đơn hàng
 </div>
+<?php if (!isset($listCart)): ?>
+    <div class="line-buttom"> Hiện tại đơn hàng trống</div>
+<?php endif; ?>
 <?php if(isset($listCart)) : ?>
 <table class="table table-hover line-buttom">
+      <tr class="first-tr">
+            <td class="text-center"> Tên sản phẩm</td>  
+            <td class="text-center"> Mầu sắc</td>
+            <td class="text-center"> Kích cỡ</td>  
+            <td class="text-center">Số lượng</td>  
+             <td class="text-center">Thành tiền</td>  
+        </tr>
     <?php foreach ($listCart as $keySanPham => $valSanPham): ?>
-        <?php foreach ($valSanPham as $keyMauSac => $valMauSac): ?>
-            <?php foreach ($valMauSac as $keysize => $valsize): ?>
+            <?php foreach ($valSanPham as $keyMauSac => $valMauSac): ?>
+                <?php foreach ($valMauSac as $keysize => $valsize): ?>
                 <tr>
-                    <td><?php echo $keySanPham; ?></td>
-                    <td><?php echo $keyMauSac; ?></td>
-                    <td><?php echo $valsize['kich_thuoc_id'] . "---" . $valsize['so_luong'] ?></td>
+                    <td class="text-center"><?php echo $this->mapIdToNameSanPham[$keySanPham]; ?></td>
+                        <td class="text-center"><?php echo $this->mapIdToNameMauSac[$keyMauSac]; ?></td>
+                        <td class="text-center"><?php echo $this->mapIdToNameKichThuoc[$valsize['kich_thuoc_id']]; ?></td> 
+                        <td class="text-center"><?php echo $valsize['so_luong']; ?></td>
+                         <td class="text-center"><?php echo ($valsize['so_luong']*$valsize['gia_nhap'] ); ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php endforeach; ?>
@@ -21,6 +33,7 @@
     <?php
     ?>
 </table>
+Tổng toàn bộ số tiền là: <?php echo $this->totalMoney; ?>
 <?php endif; ?>
 <form action="" method="POST">
     <button value="Submit" name="submit" class="btn btn-primary">Nhập hàng vào kho</button>

@@ -1,6 +1,6 @@
 
 <div class="title-action line-buttom">
-    Nhập hàng vào kho
+    Nhập sản phẩm mới
 </div>
 <?php
 if ($this->formAdd) {
@@ -12,29 +12,38 @@ if ($this->formAdd) {
 
 <div class="div-content100">
     <form class="form-horizontal" method="POST">
-        <div class="form-group">
-            <label class="col-sm-1 control-label">Mau sac</label>
-            <div class="col-sm-2">
-                <?php echo $formAdd->mau_sac_id;
-                ?>
-            </div>
-
-            <div class="col-sm-9">
-                <?php
-                $optionsKichThuoc = $formAdd->kich_thuoc_id->options;
-                foreach ($optionsKichThuoc as $key => $val) :
-                    ?>
-                    <div class="row"> 
-                        <label class="col-sm-2">Kích thước</label>
-                        <div class="col-sm-3"><input type="checkbox" name="kich_thuoc_id[]" value="<?php echo $key; ?>" /><?php echo $val; ?></div>
-                        <label class="col-sm-2">Số lượng</label>
-                        <div class="col-sm-5"><?php echo $formAdd->so_luong->setAttrib("name", "so_luong[$key]"); ?></div>
-                    </div>
-                <?php endforeach; ?>
-
-            </div>
+        <div class="row rowsp">
+            <div class="col-sm-6"> <?php echo $formAdd->ma_san_pham; ?></div>
+            <div class="col-sm-6"> <?php echo $formAdd->ten_san_pham; ?> </div>
         </div>
 
+        <div class="row rowsp">
+            <div class="col-sm-3"> <?php echo $formAdd->gia_nhap; ?> </div>
+            <div class="col-sm-3"> <?php echo $formAdd->gia_de_xuat; ?> </div>
+            <div class="col-sm-3"> <?php echo $formAdd->giam_gia_id; ?></div>
+            <div class="col-sm-3"> <?php echo $formAdd->gia_ban; ?> </div>
+        </div>
+        <div class="row rowsp">
+            <div class="col-sm-2">Giới tính</div>
+            <div class="col-sm-4"> <?php echo $formAdd->gioi_tinh; ?> </div>
+            <div class="col-sm-2">Xuất xứ</div>
+            <div class="col-sm-4"> <?php echo $formAdd->xuat_xu_id; ?> </div>
+
+
+        </div>
+        <div class="row rowsp">
+            <div class="col-sm-2">Độ cao</div>
+            <div class="col-sm-4"> <?php echo $formAdd->do_cao_id; ?></div>
+            <div class="col-sm-2">Chất liệu</div>
+            <div class="col-sm-4"> <?php echo $formAdd->chat_lieu_id; ?> </div>
+        </div>
+        <div class="row rowsp">
+            <div class="col-sm-2">Nhóm sản phẩm</div>
+            <div class="col-sm-4"> <?php echo $formAdd->nhom_san_pham_id; ?> </div>
+            <div class="col-sm-2">Tình trạng</div>
+            <div class="col-sm-4"> <?php echo $formAdd->tinh_trang_id; ?></div>
+        </div>
+     
 
         <?php echo $formAdd->submit; ?>
 
