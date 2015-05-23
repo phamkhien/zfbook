@@ -11,7 +11,8 @@ class Admin_NhaphangController extends Zendvn_Controller_Action {
     public function indexAction() {
         var_dump($this->mapIdToNameSanPham());
         die();
-        $a = 11;
+        
+        $a = 11;  
         if ($a) {
             echo "x";
         } else {
